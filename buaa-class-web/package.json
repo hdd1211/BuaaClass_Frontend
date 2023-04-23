@@ -9,8 +9,11 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "element": "^0.1.4",
+    "moment": "^2.29.4",
     "vue": "^3.2.13",
-    "vue-router": "^4.0.3",
+    "vue-resource": "^1.5.3",
+    "vue-router": "^4.1.6",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
@@ -42,7 +45,11 @@
     "parserOptions": {
       "ecmaVersion": 2020
     },
-    "rules": {}
+    "rules": {
+      "vue/multi-word-component-names": ["error", {
+        "ignores": ["Home"]
+        }]
+    }
   },
   "browserslist": [
     "> 1%",
