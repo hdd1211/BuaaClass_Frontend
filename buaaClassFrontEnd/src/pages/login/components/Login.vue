@@ -7,6 +7,7 @@
     label-width="0"
     @submit="onSubmit"
   >
+    <!--账号-->
     <template v-if="type == 'password'">
       <t-form-item name="account">
         <t-input v-model="formData.account" size="large" placeholder="请输入账号：admin">
@@ -15,7 +16,7 @@
           </template>
         </t-input>
       </t-form-item>
-
+      <!--密码-->
       <t-form-item name="password">
         <t-input
           v-model="formData.password"
@@ -28,7 +29,7 @@
             <t-icon name="lock-on" />
           </template>
           <template #suffix-icon>
-            <t-icon :name="showPsw ? 'browse' : 'browse-off'" @click="showPsw = !showPsw" />
+            <t-icon :name="showPsw ? 'browse' : 'browse-off'" @click="showPsw = !showPsw" /><!--展示密码-->
           </template>
         </t-input>
       </t-form-item>
@@ -40,16 +41,16 @@
     </template>
 
     <!-- 扫码登陆 -->
-    <template v-else-if="type == 'qrcode'">
+    <!-- <template v-else-if="type == 'qrcode'">
       <div class="tip-container">
         <span class="tip">请使用微信扫一扫登录</span>
         <span class="refresh">刷新 <t-icon name="refresh" /> </span>
       </div>
       <qrcode-vue value="" :size="160" level="H" />
-    </template>
+    </template> -->
 
     <!-- 手机号登陆 -->
-    <template v-else>
+    <!-- <template v-else>
       <t-form-item name="phone">
         <t-input v-model="formData.phone" size="large" placeholder="请输入手机号码">
           <template #prefix-icon>
@@ -64,7 +65,7 @@
           {{ countDown == 0 ? '发送验证码' : `${countDown}秒后可重发` }}
         </t-button>
       </t-form-item>
-    </template>
+    </template> -->
 
     <t-form-item v-if="type !== 'qrcode'" class="btn-container">
       <t-button block size="large" type="submit"> 登录 </t-button>
@@ -72,8 +73,8 @@
 
     <div class="switch-container">
       <span v-if="type !== 'password'" class="tip" @click="switchType('password')">使用账号密码登录</span>
-      <span v-if="type !== 'qrcode'" class="tip" @click="switchType('qrcode')">使用微信扫码登录</span>
-      <span v-if="type !== 'phone'" class="tip" @click="switchType('phone')">使用手机号登录</span>
+      <!-- <span v-if="type !== 'qrcode'" class="tip" @click="switchType('qrcode')">使用微信扫码登录</span>
+      <span v-if="type !== 'phone'" class="tip" @click="switchType('phone')">使用手机号登录</span> -->
     </div>
   </t-form>
 </template>
@@ -99,10 +100,10 @@ const INITIAL_DATA = {
 };
 
 const FORM_RULES: Record<string, FormRule[]> = {
-  phone: [{ required: true, message: '手机号必填', type: 'error' }],
+  // phone: [{ required: true, message: '手机号必填', type: 'error' }],
   account: [{ required: true, message: '账号必填', type: 'error' }],
   password: [{ required: true, message: '密码必填', type: 'error' }],
-  verifyCode: [{ required: true, message: '验证码必填', type: 'error' }],
+  // verifyCode: [{ required: true, message: '验证码必填', type: 'error' }],
 };
 
 const type = ref('password');
@@ -123,14 +124,15 @@ const route = useRoute();
 /**
  * 发送验证码
  */
-const sendCode = () => {
-  form.value.validate({ fields: ['phone'] }).then((e) => {
-    if (e === true) {
-      handleCounter();
-    }
-  });
-};
+// const sendCode = () => {
+//   form.value.validate({ fields: ['phone'] }).then((e) => {
+//     if (e === true) {
+//       handleCounter();
+//     }
+//   });
+// };
 
+//登录后跳转界面
 const onSubmit = async ({ validateResult }) => {
   if (validateResult === true) {
     try {
