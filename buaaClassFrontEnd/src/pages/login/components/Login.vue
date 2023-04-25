@@ -88,6 +88,7 @@ import { useRoute, useRouter } from 'vue-router';
 
 import { useCounter } from '@/hooks';
 import { useUserStore } from '@/store';
+import axios from 'axios';
 
 const userStore = useUserStore();
 
@@ -121,6 +122,7 @@ const switchType = (val: string) => {
 const router = useRouter();
 const route = useRoute();
 
+
 /**
  * 发送验证码
  */
@@ -132,11 +134,25 @@ const route = useRoute();
 //   });
 // };
 
+
 //登录后跳转界面
+//https://www.axios-http.cn/docs/example
+var data = formData;
+var name = data.value.account;
+var password = data.value.password;
+let DBData = ref<any>;
+
 const onSubmit = async ({ validateResult }) => {
   if (validateResult === true) {
     try {
-      await userStore.login(formData.value);
+      // const response = await axios.get('/User',{
+      //   params: {
+      //     DBData
+      //   }
+      // })
+      // console.log(response);
+      //数据库相关，不确定能否炮筒
+      await userStore.login(formData.value);//默认自带的登陆
 
       MessagePlugin.success('登陆成功');
       const redirect = route.query.redirect as string;
