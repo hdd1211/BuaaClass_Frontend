@@ -36,7 +36,7 @@
 
       <div class="check-container remember-pwd">
         <t-checkbox>记住账号</t-checkbox>
-        <span class="tip">忘记账号？</span>
+        <!-- <span class="tip">忘记账号？</span> -->
       </div>
     </template>
 
