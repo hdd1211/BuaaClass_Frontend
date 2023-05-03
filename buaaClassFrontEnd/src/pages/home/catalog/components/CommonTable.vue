@@ -5,37 +5,44 @@
         <t-col :span="10">
           <t-row :gutter="[24, 24]">
             <t-col :span="4">
-              <t-form-item label="合同名称" name="name">
+              <t-form-item label="课程名称" name="name">
                 <t-input
                   v-model="formData.name"
                   class="form-item-content"
                   type="search"
-                  placeholder="请输入合同名称"
+                  placeholder="请输入课程名称"
                   :style="{ minWidth: '134px' }"
                 />
               </t-form-item>
             </t-col>
             <t-col :span="4">
-              <t-form-item label="合同状态" name="status">
+              <t-form-item label="课程类别" name="status">
                 <t-select
                   v-model="formData.status"
                   class="form-item-content"
-                  :options="CONTRACT_STATUS_OPTIONS"
-                  placeholder="请选择合同状态"
+                  :options="CLASS_STATUS_OPTIONS"
+                  placeholder="请选择课程类别"
                 />
               </t-form-item>
             </t-col>
             <t-col :span="4">
-              <t-form-item label="合同编号" name="no">
+              <t-form-item label="课程代码" name="no">
                 <t-input
                   v-model="formData.no"
                   class="form-item-content"
-                  placeholder="请输入合同编号"
+                  placeholder="请输入课程代码"
                   :style="{ minWidth: '134px' }"
                 />
               </t-form-item>
             </t-col>
-            <t-col :span="4">
+             <t-col :span="4">
+              <div class="left-operation-container">
+               <t-button @click="handleSetupContract"> 新建课程 </t-button>
+               <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length"> 删除课程 </t-button>
+               <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
+              </div>
+            </t-col>
+            <!-- <t-col :span="4">
               <t-form-item label="合同类型" name="type">
                 <t-select
                   v-model="formData.type"
@@ -45,7 +52,7 @@
                   placeholder="请选择合同类型"
                 />
               </t-form-item>
-            </t-col>
+            </t-col> -->
           </t-row>
         </t-col>
 
@@ -66,15 +73,32 @@
         :pagination="pagination"
         :loading="dataLoading"
         :header-affixed-top="headerAffixedTop"
+        :selected-row-keys="selectedRowKeys"
         @page-change="rehandlePageChange"
         @change="rehandleChange"
+        @select-change="rehandleSelectChange"
       >
         <template #status="{ row }">
-          <t-tag v-if="row.status === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 审!核失败 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 待审核 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 待履行 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 履行中 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 已完成 </t-tag>
+          <p v-if="row.status ===  CLASS_STATUS.A1"> 数学与自然科学类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.A2"> 工程基础类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.A3"> 语言类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.A4"> 外语类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.A5"> 英语分级 </p>
+
+          <p v-if="row.status ===  CLASS_STATUS.B1"> 思政、军理类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.B2"> 体育类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.B3"> 核心通识类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.B4"> 素质教育通识限修课 </p>
+          <p v-if="row.status ===  CLASS_STATUS.B5"> 素质教育类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.B6"> 一般通识类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.B7"> 博雅类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.B8"> Office Hours </p>
+          <p v-if="row.status ===  CLASS_STATUS.B9"> 素质教育理论必修课 </p>
+          <p v-if="row.status ===  CLASS_STATUS.B10"> 素质教育实践必修课 </p>
+
+          <p v-if="row.status ===  CLASS_STATUS.C1"> 核心专业类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.C2"> 一般专业类 </p>
+          <p v-if="row.status ===  CLASS_STATUS.C3"> 科研课堂 </p>
         </template>
         <template #contractType="{ row }">
           <p v-if="row.contractType === CONTRACT_TYPES.MAIN">子合同</p>
@@ -90,13 +114,13 @@
           </p>
         </template>
         <template #op="slotProps">
-          <a class="t-button-link" @click="rehandleClickOp(slotProps)">管理</a>
+          <a class="t-button-link" @click="handleClickDetail()">详情</a>
           <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a>
         </template>
       </t-table>
       <t-dialog
         v-model:visible="confirmVisible"
-        header="确认删除当前所选合同？"
+        header="确认删除当前所选课程？"
         :body="confirmBody"
         :on-cancel="onCancel"
         @confirm="onConfirmDelete"
@@ -113,49 +137,55 @@ import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import {
   CONTRACT_PAYMENT_TYPES,
-  CONTRACT_STATUS,
-  CONTRACT_STATUS_OPTIONS,
+  CLASS_STATUS,
+  CLASS_STATUS_OPTIONS,
   CONTRACT_TYPE_OPTIONS,
   CONTRACT_TYPES,
 } from '@/constants';
 import { useSettingStore } from '@/store';
+import { useRouter } from 'vue-router';
 
 const store = useSettingStore();
+const selectedRowKeys = ref([1, 2]);
 
+const rehandleSelectChange = (val: number[]) => {
+  selectedRowKeys.value = val;
+};
 const COLUMNS: PrimaryTableCol<TableRowData>[] = [
+  { colKey: 'row-select', type: 'multiple', width: 64, fixed: 'left' },
   {
-    title: '合同名称',
+    title: '课程名称',
     fixed: 'left',
     width: 280,
     ellipsis: true,
     align: 'left',
     colKey: 'name',
   },
-  { title: '合同状态', colKey: 'status', width: 160 },
+  { title: '课程类别', colKey: 'status', width: 160 },
   {
-    title: '合同编号',
+    title: '课程代码',
     width: 160,
     ellipsis: true,
     colKey: 'no',
   },
-  {
-    title: '合同类型',
-    width: 160,
-    ellipsis: true,
-    colKey: 'contractType',
-  },
-  {
-    title: '合同收付类型',
-    width: 160,
-    ellipsis: true,
-    colKey: 'paymentType',
-  },
-  {
-    title: '合同金额 (元)',
-    width: 160,
-    ellipsis: true,
-    colKey: 'amount',
-  },
+  // {
+  //   title: '合同类型',
+  //   width: 160,
+  //   ellipsis: true,
+  //   colKey: 'contractType',
+  // },
+  // {
+  //   title: '合同收付类型',
+  //   width: 160,
+  //   ellipsis: true,
+  //   colKey: 'paymentType',
+  // },
+  // {
+  //   title: '合同金额 (元)',
+  //   width: 160,
+  //   ellipsis: true,
+  //   colKey: 'amount',
+  // },
   {
     align: 'left',
     fixed: 'right',
@@ -176,6 +206,11 @@ const formData = ref({ ...searchForm });
 const rowKey = 'index';
 const verticalAlign = 'top' as const;
 const hover = true;
+const router = useRouter();
+
+const handleClickDetail = () => {
+  router.push('/home/detail');
+};
 
 const pagination = ref({
   defaultPageSize: 20,
@@ -220,6 +255,10 @@ const onConfirmDelete = () => {
   // 真实业务请发起请求
   data.value.splice(deleteIdx.value, 1);
   pagination.value.total = data.value.length;
+  const selectedIdx = selectedRowKeys.value.indexOf(deleteIdx.value);
+  if (selectedIdx > -1) {
+    selectedRowKeys.value.splice(selectedIdx, 1);
+  }
   confirmVisible.value = false;
   MessagePlugin.success('删除成功');
   resetIdx();
@@ -263,6 +302,12 @@ const headerAffixedTop = computed(
 </script>
 
 <style lang="less" scoped>
+
+.selected-count {
+  display: inline-block;
+  margin-left: var(--td-comp-margin-l);
+  color: var(--td-text-color-secondary);
+}
 .list-common-table {
   background-color: var(--td-bg-color-container);
   padding: var(--td-comp-paddingTB-xxl) var(--td-comp-paddingLR-xxl);

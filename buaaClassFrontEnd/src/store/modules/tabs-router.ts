@@ -11,7 +11,22 @@ const homeRoute: Array<TRouterInfo> = [
     name: 'DashboardBase',
     isHome: true,
   },
+  {
+    path: '/home/catalog',
+    routeIdx: 0,
+    title: '课程目录',
+    name: 'HomeCatalog',
+    isHome: true,
+  },
+  {
+    path: '/home/detail',
+    routeIdx: 0,
+    title: '课程目录',
+    name: 'HomeDetail',
+    isHome: true,
+  },
 ];
+
 
 const state = {
   tabRouterList: homeRoute,

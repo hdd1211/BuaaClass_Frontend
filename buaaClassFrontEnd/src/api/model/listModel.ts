@@ -10,6 +10,7 @@ export interface ListModel {
   no: string;
   paymentType: number;
   status: number;
+  classtype:number;
   updateTime: Date;
 }
 
