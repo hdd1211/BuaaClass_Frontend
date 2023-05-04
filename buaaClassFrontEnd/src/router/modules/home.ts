@@ -27,9 +27,17 @@ export default [
         path: 'detail',
         name: 'HomeDetail',
         component: () => import('@/pages/home/detail/index.vue'),
-        meta: {
-          title: '课程详情',
-        },
+        // meta: {
+        //   title: '课程详情',
+        // },
+      },
+      {
+        path: 'catalog/components/addclass',
+        name: 'AddClass',
+        component: () => import('@/pages/home/catalog/components/addclass/index.vue'),
+        // meta: {
+        //   title: '新建课程',
+        // },
       },
     ],
   },

@@ -37,9 +37,16 @@
             </t-col>
              <t-col :span="4">
               <div class="left-operation-container">
-               <t-button @click="handleSetupContract"> 新建课程 </t-button>
-               <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length"> 删除课程 </t-button>
-               <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
+                <t-button @click="handleSetupContract"> 新建课程 </t-button>
+                <t-button class="t-button-link" variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDeleteALL(slotProps)"> 删除课程 </t-button>
+                <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
+              <t-dialog
+                v-model:visible="confirmVisible"
+                header="确认删除所选课程？"
+                :body="confirmBody"
+                :on-cancel="onCancel"
+                @confirm="onConfirmDeleteALL"
+              />
               </div>
             </t-col>
             <!-- <t-col :span="4">
@@ -201,6 +208,9 @@ const searchForm = {
   status: undefined,
   type: '',
 };
+const handleSetupContract = () => {
+  router.push('/home/catalog/components/addclass');
+};
 
 const formData = ref({ ...searchForm });
 const rowKey = 'index';
@@ -263,6 +273,18 @@ const onConfirmDelete = () => {
   MessagePlugin.success('删除成功');
   resetIdx();
 };
+const onConfirmDeleteALL = () => {
+  // 真实业务请发起请求
+  data.value.splice(deleteIdx.value, 1);
+  pagination.value.total = data.value.length;
+  const selectedIdx = selectedRowKeys.value.indexOf(deleteIdx.value);
+  if (selectedIdx > -1) {
+    selectedRowKeys.value.splice(selectedIdx, 1);
+  }
+  confirmVisible.value = false;
+  MessagePlugin.success('删除成功');
+  resetIdx();
+};
 
 const onCancel = () => {
   resetIdx();
@@ -276,6 +298,11 @@ const handleClickDelete = ({ row }) => {
   deleteIdx.value = row.rowIndex;
   confirmVisible.value = true;
 };
+const handleClickDeleteALL = ({ row }) => {
+  deleteIdx.value = row.rowIndex;
+  confirmVisible.value = true;
+};
+
 const onReset = (val) => {
   console.log(val);
 };
