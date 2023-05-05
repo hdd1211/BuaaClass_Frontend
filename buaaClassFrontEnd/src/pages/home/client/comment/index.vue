@@ -30,46 +30,36 @@
         @select-change="rehandleSelectChange"
       >
         <template #status="{ row }">
-          <t-tag v-if="row.status === CONTRACT_STATUS.FAIL" theme="danger">已举报</t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.AUDIT_PENDING" theme="default">已删除</t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.EXEC_PENDING" theme="default">已删除</t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.EXECUTING" theme="success">未举报</t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.FINISH" theme="success">未举报</t-tag>
+          <t-tag v-if="row.status === COMMENT_STATUS.UNREPORT" theme="success">未举报</t-tag>
+          <t-tag v-if="row.status === COMMENT_STATUS.REPORT" theme="danger">已举报</t-tag>
+          <t-tag v-if="row.status === COMMENT_STATUS.DELETE" theme="default">已删除</t-tag>
         </template>
 
         <template #quality="{ row }">
-          <t-tag v-if="row.quality === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
-          <t-tag v-if="row.quality === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.quality === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.quality === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
-          <t-tag v-if="row.quality === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.quality === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.quality === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.quality === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
         </template>
         <template #load="{ row }">
-          <t-tag v-if="row.load === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
-          <t-tag v-if="row.load === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.load === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.load === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
-          <t-tag v-if="row.load === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.load === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.load === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.load === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
         </template>
         <template #comment="{ row }">
-          <t-tag v-if="row.comment === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
-          <t-tag v-if="row.comment === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.comment === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.comment === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
-          <t-tag v-if="row.comment === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.comment === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.comment === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.comment === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
         </template>
         <template #score="{ row }">
-          <t-tag v-if="row.score === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
-          <t-tag v-if="row.score === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.score === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.score === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
-          <t-tag v-if="row.score === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.score === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.score === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.score === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
         </template>
         <template #heat="{ row }">
-          <div v-if="row.heat === CONTRACT_PAYMENT_TYPES.PAYMENT" class="payment-col">
+          <div v-if="row.heat === HEAT_STATUS.UP" class="payment-col">
             热度<trend class="dashboard-item-trend" type="up" />
           </div>
-          <div v-if="row.heat === CONTRACT_PAYMENT_TYPES.RECEIPT" class="payment-col">
+          <div v-if="row.heat === HEAT_STATUS.DOWN" class="payment-col">
             热度<trend class="dashboard-item-trend" type="down" />
           </div>
         </template>
@@ -106,7 +96,7 @@ import { useRouter } from 'vue-router';
 import { getList } from '@/api/list';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
-import { CONTRACT_PAYMENT_TYPES, CONTRACT_STATUS, CONTRACT_TYPES } from '@/constants';
+import { HEAT_STATUS, SATISFY_STATUS, COMMENT_STATUS } from '@/constants';
 import { useSettingStore } from '@/store';
 
 import { COLUMNS } from './constants';

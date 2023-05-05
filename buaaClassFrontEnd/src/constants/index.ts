@@ -42,6 +42,43 @@ export const CLASS_STATUS_OPTIONS = [
   { value: CLASS_STATUS.C3, label: '科研课堂' },
 ];
 
+// 评论状态枚举
+export const COMMENT_STATUS = {
+  UNREPORT: 0,
+  REPORT: 1,
+  DELETE: 2,
+};
+
+export const COMMENT_STATUS_OPTIONS = [
+  { value: COMMENT_STATUS.UNREPORT, label: '未举报' },
+  { value: COMMENT_STATUS.REPORT, label: '已举报' },
+  { value: COMMENT_STATUS.DELETE, label: '已删除' },
+];
+
+// 满意度枚举
+export const SATISFY_STATUS = {
+  UNSATISFY: 0,
+  JUSTSOSO: 1,
+  SATISFY: 2,
+};
+
+export const SATISFY_STATUS_OPTIONS = [
+  { value: SATISFY_STATUS.UNSATISFY, label: '不满意' },
+  { value: SATISFY_STATUS.JUSTSOSO, label: '一般般' },
+  { value: SATISFY_STATUS.SATISFY, label: '很满意' },
+];
+
+// 热度枚举
+export const HEAT_STATUS = {
+  UP: 0,
+  DOWN: 1,
+};
+
+export const HEAT_STATUS_OPTIONS = [
+  { value: HEAT_STATUS.UP, label: '热度上升' },
+  { value: HEAT_STATUS.DOWN, label: '热度下降' },
+];
+
 // 合同状态枚举
 export const CONTRACT_STATUS = {
   FAIL: 0,
@@ -52,11 +89,11 @@ export const CONTRACT_STATUS = {
 };
 
 export const CONTRACT_STATUS_OPTIONS = [
-  { value: CONTRACT_STATUS.FAIL, label: '审核!失败' },
+  { value: CONTRACT_STATUS.FAIL, label: '审核失败' },
   { value: CONTRACT_STATUS.AUDIT_PENDING, label: '待审核' },
   { value: CONTRACT_STATUS.EXEC_PENDING, label: '待履行' },
   { value: CONTRACT_STATUS.EXECUTING, label: '审核成功' },
-  { value: CONTRACT_STATUS.FINISH, label: '已!完成' },
+  { value: CONTRACT_STATUS.FINISH, label: '已完成' },
 ];
 
 

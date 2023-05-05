@@ -42,13 +42,13 @@ export default [
           'list|1-100': [
             {
               'heading|1':["比较充实，有所收获","不错"],
-              'status|1': '@natural(0, 4)',
+              'status|1': '@natural(0, 2)',
               'commentinfo|1':["课程听感：助教和老师都很细心负责，会认真的答疑+讲解。","锻炼自学能力(*/ω＼*)","助教超好！！！"],
               'index|+1': 1,
-              'quality|1': '@natural(0, 4)',
-              'load|1': '@natural(0, 4)',
-              'score|1': '@natural(0, 4)',
-              'comment|1': '@natural(0, 4)',
+              'quality|1': '@natural(0, 2)',
+              'load|1': '@natural(0, 2)',
+              'score|1': '@natural(0, 2)',
+              'comment|1': '@natural(0, 2)',
               no: 'BH00@natural(01, 100)',
               //name: '@city()办公用品采购项目',
               name: 'buaaer@natural(01, 100)',
