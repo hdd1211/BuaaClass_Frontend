@@ -9,7 +9,11 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     colKey: 'name',
     fixed: 'left',
   },
-  { title: '注册时间', colKey: 'logTime', width: 160 },
+  { 
+    title: '注册时间', 
+    colKey: 'logTime', 
+    width: 160 
+  },
 
   {
     title: '最近一次访问时间',
@@ -22,20 +26,8 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     title: '参与度',
     width: 160,
     ellipsis: true,
-    colKey: 'amount',
+    colKey: 'involve',
   },
-  // {
-  //   title: '合同类型',
-  //   width: 160,
-  //   ellipsis: true,
-  //   colKey: 'contractType',
-  // },
-  // {
-  //   title: '合同收付类型',
-  //   width: 160,
-  //   ellipsis: true,
-  //   colKey: 'paymentType',
-  // },
  
   {
     align: 'left',

@@ -6,7 +6,7 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     title: '状态',
     align: 'left',
     width: 160,
-    colKey: 'accusation',
+    colKey: 'status',
     fixed: 'left',
   },
   {
@@ -23,10 +23,26 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     colKey: 'classname',
     // fixed: 'left',
   },
-  { title: '内容质量', colKey: 'quality', width: 160 },
-  { title: '工作量', colKey: 'load', width: 160 },
-  { title: '考核/给分', colKey: 'score', width: 160 },
-  { title: '总体评价', colKey: 'status', width: 160 },
+  {
+    title: '内容质量',
+    colKey: 'quality',
+    width: 160 
+  },
+  { 
+    title: '工作量', 
+    colKey: 'load', 
+    width: 160 
+  },
+  { 
+    title: '考核/给分', 
+    colKey: 'score', 
+    width: 160 
+  },
+  { 
+    title: '总体评价', 
+    colKey: 'comment', 
+    width: 160 
+  },
   {
     title: '评论内容',
     width: 160,
@@ -43,20 +59,14 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     title: '评论时间',
     width: 160,
     ellipsis: true,
-    colKey: 'updateTime',
+    colKey: 'time',
   },
   {
     title: '热度',
     width: 160,
     ellipsis: true,
-    colKey: 'paymentType',
+    colKey: 'heat',
   },
-  // {
-  //   title: '合同金额 (元)',
-  //   width: 160,
-  //   ellipsis: true,
-  //   colKey: 'amount',
-  // },
   {
     align: 'left',
     fixed: 'right',

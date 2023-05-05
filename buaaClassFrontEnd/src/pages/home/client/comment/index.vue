@@ -4,7 +4,7 @@
       <t-row justify="space-between">
         <div class="left-operation-container">
           <!-- <t-button @click="handleSetupContract"> 新建合同 </t-button> -->
-          <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length"> 删除 </t-button>
+            <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDelete(slotProps)"> 删除 </t-button>
           <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
         </div>
         <div class="search-input">
@@ -29,52 +29,47 @@
         @change="rehandleChange"
         @select-change="rehandleSelectChange"
       >
-        <template #accusation="{ row }">
-          <t-tag v-if="row.accusation === CONTRACT_STATUS.FAIL" theme="danger">已举报</t-tag>
-          <t-tag v-if="row.accusation === CONTRACT_STATUS.AUDIT_PENDING" theme="default">已删除</t-tag>
-          <t-tag v-if="row.accusation === CONTRACT_STATUS.EXEC_PENDING" theme="default">已删除</t-tag>
-          <t-tag v-if="row.accusation === CONTRACT_STATUS.EXECUTING" theme="success">未举报</t-tag>
-          <t-tag v-if="row.accusation === CONTRACT_STATUS.FINISH" theme="success">未举报</t-tag>
-        </template>
         <template #status="{ row }">
-          <t-tag v-if="row.status === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
-          <t-tag v-if="row.status === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.status === CONTRACT_STATUS.FAIL" theme="danger">已举报</t-tag>
+          <t-tag v-if="row.status === CONTRACT_STATUS.AUDIT_PENDING" theme="default">已删除</t-tag>
+          <t-tag v-if="row.status === CONTRACT_STATUS.EXEC_PENDING" theme="default">已删除</t-tag>
+          <t-tag v-if="row.status === CONTRACT_STATUS.EXECUTING" theme="success">未举报</t-tag>
+          <t-tag v-if="row.status === CONTRACT_STATUS.FINISH" theme="success">未举报</t-tag>
         </template>
-        
-         <template #quality="{ row }">
+
+        <template #quality="{ row }">
           <t-tag v-if="row.quality === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
           <t-tag v-if="row.quality === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
           <t-tag v-if="row.quality === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
           <t-tag v-if="row.quality === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
           <t-tag v-if="row.quality === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
         </template>
-         <template #load="{ row }">
+        <template #load="{ row }">
           <t-tag v-if="row.load === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
           <t-tag v-if="row.load === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
           <t-tag v-if="row.load === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
           <t-tag v-if="row.load === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
           <t-tag v-if="row.load === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
         </template>
-         <template #score="{ row }">
+        <template #comment="{ row }">
+          <t-tag v-if="row.comment === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
+          <t-tag v-if="row.comment === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.comment === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.comment === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.comment === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
+        </template>
+        <template #score="{ row }">
           <t-tag v-if="row.score === CONTRACT_STATUS.FAIL" theme="danger" variant="light"> 不满意 </t-tag>
           <t-tag v-if="row.score === CONTRACT_STATUS.AUDIT_PENDING" theme="warning" variant="light"> 一般 </t-tag>
           <t-tag v-if="row.score === CONTRACT_STATUS.EXEC_PENDING" theme="warning" variant="light"> 一般 </t-tag>
           <t-tag v-if="row.score === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 很满意 </t-tag>
           <t-tag v-if="row.score === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 很满意 </t-tag>
         </template>
-        <template #contractType="{ row }">
-          <p v-if="row.contractType === CONTRACT_TYPES.MAIN">审核失败</p>
-          <p v-if="row.contractType === CONTRACT_TYPES.SUB">待审核</p>
-          <p v-if="row.contractType === CONTRACT_TYPES.SUPPLEMENT">待履行</p>
-        </template>
-        <template #paymentType="{ row }">
-          <div v-if="row.paymentType === CONTRACT_PAYMENT_TYPES.PAYMENT" class="payment-col">
+        <template #heat="{ row }">
+          <div v-if="row.heat === CONTRACT_PAYMENT_TYPES.PAYMENT" class="payment-col">
             热度<trend class="dashboard-item-trend" type="up" />
           </div>
-          <div v-if="row.paymentType === CONTRACT_PAYMENT_TYPES.RECEIPT" class="payment-col">
+          <div v-if="row.heat === CONTRACT_PAYMENT_TYPES.RECEIPT" class="payment-col">
             热度<trend class="dashboard-item-trend" type="down" />
           </div>
         </template>
@@ -88,7 +83,7 @@
 
     <t-dialog
       v-model:visible="confirmVisible"
-      header="确认删除当前所选合同？"
+      header="确认删除当前所选评价？"
       :body="confirmBody"
       :on-cancel="onCancel"
       @confirm="onConfirmDelete"
@@ -148,7 +143,7 @@ const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
   if (deleteIdx.value > -1) {
     const { name } = data.value[deleteIdx.value];
-    return `删除后，${name}的所有合同信息将被清空，且无法恢复`;
+    return `${name}的此条评论将被删除，且无法恢复`;
   }
   return '';
 });
@@ -197,9 +192,6 @@ const rehandleChange = (changeParams, triggerAndData) => {
 };
 const handleClickDetail = () => {
   router.push('/detail/base');
-};
-const handleSetupContract = () => {
-  router.push('/form/base');
 };
 const handleClickDelete = (row: { rowIndex: any }) => {
   deleteIdx.value = row.rowIndex;
