@@ -3,8 +3,8 @@
     <t-card class="list-card-container" :bordered="false">
       <t-row justify="space-between">
         <div class="left-operation-container">
-          <t-button @click="handleSetupContract"> 新建合同 </t-button>
-          <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length"> 导出合同 </t-button>
+          <!-- <t-button @click="handleSetupContract"> 批量选择 </t-button> -->
+          <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length"> 删除 </t-button>
           <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
         </div>
         <div class="search-input">
@@ -119,7 +119,7 @@ const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
   if (deleteIdx.value > -1) {
     const { name } = data.value[deleteIdx.value];
-    return `删除后，${name}的所有合同信息将被清空，且无法恢复`;
+    return `删除后，${name}的所有信息将被清空，且无法恢复`;
   }
   return '';
 });

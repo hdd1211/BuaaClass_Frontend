@@ -166,7 +166,7 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     width: 280,
     ellipsis: true,
     align: 'left',
-    colKey: 'name',
+    colKey: 'classname',
   },
   { title: '课程类别', colKey: 'status', width: 160 },
   {
