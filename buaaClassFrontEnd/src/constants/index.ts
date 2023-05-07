@@ -1,5 +1,5 @@
 // 课程类别枚举
-export const CLASS_STATUS = {
+export const CLASS_TYPE = {
   A1: 0,
   A2: 1,
   A3: 2,
@@ -19,27 +19,27 @@ export const CLASS_STATUS = {
   C2:16,
   C3:17,
 };
-export const CLASS_STATUS_OPTIONS = [
-  { value: CLASS_STATUS.A1, label: '数学与自然科学类' },
-  { value: CLASS_STATUS.A2, label: '工程基础类' },
-  { value: CLASS_STATUS.A3, label: '语言类' },
-  { value: CLASS_STATUS.A4, label: '外语类' },
-  { value: CLASS_STATUS.A5, label: '英语分级' },
+export const CLASS_TYPE_OPTIONS = [
+  { value: CLASS_TYPE.A1, label: '数学与自然科学类' },
+  { value: CLASS_TYPE.A2, label: '工程基础类' },
+  { value: CLASS_TYPE.A3, label: '语言类' },
+  { value: CLASS_TYPE.A4, label: '外语类' },
+  { value: CLASS_TYPE.A5, label: '英语分级' },
 
-  { value: CLASS_STATUS.B1, label: '思政、军理类' },
-  { value: CLASS_STATUS.B2, label: '体育类' },
-  { value: CLASS_STATUS.B3, label: '核心通识类' },
-  { value: CLASS_STATUS.B4, label: '素质教育通识限修课' },
-  { value: CLASS_STATUS.B5, label: '素质教育类' },
-  { value: CLASS_STATUS.B6, label: '一般通识类' },
-  { value: CLASS_STATUS.B7, label: '博雅类' },
-  { value: CLASS_STATUS.B8, label: 'Office Hours' },
-  { value: CLASS_STATUS.B9, label: '素质教育理论必修课' },
-  { value: CLASS_STATUS.B10, label: '素质教育实践必修课' },
+  { value: CLASS_TYPE.B1, label: '思政、军理类' },
+  { value: CLASS_TYPE.B2, label: '体育类' },
+  { value: CLASS_TYPE.B3, label: '核心通识类' },
+  { value: CLASS_TYPE.B4, label: '素质教育通识限修课' },
+  { value: CLASS_TYPE.B5, label: '素质教育类' },
+  { value: CLASS_TYPE.B6, label: '一般通识类' },
+  { value: CLASS_TYPE.B7, label: '博雅类' },
+  { value: CLASS_TYPE.B8, label: 'Office Hours' },
+  { value: CLASS_TYPE.B9, label: '素质教育理论必修课' },
+  { value: CLASS_TYPE.B10, label: '素质教育实践必修课' },
 
-  { value: CLASS_STATUS.C1, label: '核心专业类' },
-  { value: CLASS_STATUS.C2, label: '一般专业类' },
-  { value: CLASS_STATUS.C3, label: '科研课堂' },
+  { value: CLASS_TYPE.C1, label: '核心专业类' },
+  { value: CLASS_TYPE.C2, label: '一般专业类' },
+  { value: CLASS_TYPE.C3, label: '科研课堂' },
 ];
 
 // 评论状态枚举

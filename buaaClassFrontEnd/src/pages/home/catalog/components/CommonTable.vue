@@ -16,11 +16,11 @@
               </t-form-item>
             </t-col>
             <t-col :span="4">
-              <t-form-item label="课程类别" name="status">
+              <t-form-item label="课程类别" name="type">
                 <t-select
-                  v-model="formData.status"
+                  v-model="formData.type"
                   class="form-item-content"
-                  :options="CLASS_STATUS_OPTIONS"
+                  :options="CLASS_TYPE_OPTIONS"
                   placeholder="请选择课程类别"
                 />
               </t-form-item>
@@ -49,17 +49,7 @@
               />
               </div>
             </t-col>
-            <!-- <t-col :span="4">
-              <t-form-item label="合同类型" name="type">
-                <t-select
-                  v-model="formData.type"
-                  style="display: inline-block"
-                  class="form-item-content"
-                  :options="CONTRACT_TYPE_OPTIONS"
-                  placeholder="请选择合同类型"
-                />
-              </t-form-item>
-            </t-col> -->
+
           </t-row>
         </t-col>
 
@@ -85,41 +75,29 @@
         @change="rehandleChange"
         @select-change="rehandleSelectChange"
       >
-        <template #status="{ row }">
-          <p v-if="row.status ===  CLASS_STATUS.A1"> 数学与自然科学类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.A2"> 工程基础类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.A3"> 语言类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.A4"> 外语类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.A5"> 英语分级 </p>
+        <template #type="{ row }">
+          <p v-if="row.type ===  CLASS_TYPE.A1"> 数学与自然科学类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.A2"> 工程基础类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.A3"> 语言类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.A4"> 外语类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.A5"> 英语分级 </p>
 
-          <p v-if="row.status ===  CLASS_STATUS.B1"> 思政、军理类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.B2"> 体育类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.B3"> 核心通识类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.B4"> 素质教育通识限修课 </p>
-          <p v-if="row.status ===  CLASS_STATUS.B5"> 素质教育类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.B6"> 一般通识类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.B7"> 博雅类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.B8"> Office Hours </p>
-          <p v-if="row.status ===  CLASS_STATUS.B9"> 素质教育理论必修课 </p>
-          <p v-if="row.status ===  CLASS_STATUS.B10"> 素质教育实践必修课 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B1"> 思政、军理类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B2"> 体育类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B3"> 核心通识类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B4"> 素质教育通识限修课 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B5"> 素质教育类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B6"> 一般通识类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B7"> 博雅类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B8"> Office Hours </p>
+          <p v-if="row.type ===  CLASS_TYPE.B9"> 素质教育理论必修课 </p>
+          <p v-if="row.type ===  CLASS_TYPE.B10"> 素质教育实践必修课 </p>
 
-          <p v-if="row.status ===  CLASS_STATUS.C1"> 核心专业类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.C2"> 一般专业类 </p>
-          <p v-if="row.status ===  CLASS_STATUS.C3"> 科研课堂 </p>
+          <p v-if="row.type ===  CLASS_TYPE.C1"> 核心专业类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.C2"> 一般专业类 </p>
+          <p v-if="row.type ===  CLASS_TYPE.C3"> 科研课堂 </p>
         </template>
-        <template #contractType="{ row }">
-          <p v-if="row.contractType === CONTRACT_TYPES.MAIN">子合同</p>
-          <p v-if="row.contractType === CONTRACT_TYPES.SUB">待审核</p>
-          <p v-if="row.contractType === CONTRACT_TYPES.SUPPLEMENT">待履行</p>
-        </template>
-        <template #paymentType="{ row }">
-          <p v-if="row.paymentType === CONTRACT_PAYMENT_TYPES.PAYMENT" class="payment-col">
-            付款<trend class="dashboard-item-trend" type="up" />
-          </p>
-          <p v-if="row.paymentType === CONTRACT_PAYMENT_TYPES.RECEIPT" class="payment-col">
-            收款<trend class="dashboard-item-trend" type="down" />
-          </p>
-        </template>
+
         <template #op="slotProps">
           <a class="t-button-link" @click="handleClickDetail()">详情</a>
           <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a>
@@ -143,10 +121,8 @@ import { getList } from '@/api/list';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import {
-  CONTRACT_PAYMENT_TYPES,
-  CLASS_STATUS,
-  CLASS_STATUS_OPTIONS,
-  CONTRACT_TYPE_OPTIONS,
+  CLASS_TYPE,
+  CLASS_TYPE_OPTIONS,
   CONTRACT_TYPES,
 } from '@/constants';
 import { useSettingStore } from '@/store';
@@ -168,31 +144,16 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     align: 'left',
     colKey: 'classname',
   },
-  { title: '课程类别', colKey: 'status', width: 160 },
+  { 
+    title: '课程类别', 
+    colKey: 'type', 
+    width: 160 },
   {
     title: '课程代码',
     width: 160,
     ellipsis: true,
     colKey: 'no',
   },
-  // {
-  //   title: '合同类型',
-  //   width: 160,
-  //   ellipsis: true,
-  //   colKey: 'contractType',
-  // },
-  // {
-  //   title: '合同收付类型',
-  //   width: 160,
-  //   ellipsis: true,
-  //   colKey: 'paymentType',
-  // },
-  // {
-  //   title: '合同金额 (元)',
-  //   width: 160,
-  //   ellipsis: true,
-  //   colKey: 'amount',
-  // },
   {
     align: 'left',
     fixed: 'right',
@@ -205,7 +166,6 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
 const searchForm = {
   name: '',
   no: undefined,
-  status: undefined,
   type: '',
 };
 const handleSetupContract = () => {

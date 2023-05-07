@@ -36,11 +36,6 @@
           <t-tag v-if="row.status === CONTRACT_STATUS.EXECUTING" theme="success" variant="light"> 履行中 </t-tag>
           <t-tag v-if="row.status === CONTRACT_STATUS.FINISH" theme="success" variant="light"> 已完成 </t-tag>
         </template>
-        <template #contractType="{ row }">
-          <p v-if="row.contractType === CONTRACT_TYPES.MAIN">审核失败</p>
-          <p v-if="row.contractType === CONTRACT_TYPES.SUB">待审核</p>
-          <p v-if="row.contractType === CONTRACT_TYPES.SUPPLEMENT">待履行</p>
-        </template>
         <template #paymentType="{ row }">
           <div v-if="row.paymentType === CONTRACT_PAYMENT_TYPES.PAYMENT" class="payment-col">
             付款<trend class="dashboard-item-trend" type="up" />
