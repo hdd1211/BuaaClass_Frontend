@@ -162,7 +162,7 @@ const rehandleChange = (changeParams, triggerAndData) => {
   console.log('统一Change', changeParams, triggerAndData);
 };
 const handleClickDetail = () => {
-  router.push('/detail/base');
+  router.push('/home/client/clientId/detail');
 };
 const handleSetupContract = () => {
   router.push('/form/base');

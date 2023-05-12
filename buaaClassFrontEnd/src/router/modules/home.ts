@@ -17,24 +17,24 @@ export default [
     children: [
       {
         path: 'catalog',
-        name: 'HomeCatalog',
+        name: 'Catalog',
         component: () => import('@/pages/home/catalog/index.vue'),
         meta: {
           title: '课程目录',
         },
       },
       {
-        path: 'detail',
-        name: 'HomeDetail',
-        component: () => import('@/pages/home/detail/index.vue'),
+        path: 'catalog/detail',
+        name: 'ClassDetail',
+        component: () => import('@/pages/home/catalog/detail/index.vue'),
         // meta: {
         //   title: '课程详情',
         // },
       },
       {
-        path: 'catalog/components/addclass',
+        path: 'catalog/addclass',
         name: 'AddClass',
-        component: () => import('@/pages/home/catalog/components/addclass/index.vue'),
+        component: () => import('@/pages/home/catalog/addclass/index.vue'),
         // meta: {
         //   title: '新建课程',
         // },

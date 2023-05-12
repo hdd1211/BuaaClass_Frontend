@@ -24,12 +24,28 @@ export default [
         },
       },
       {
+        path: 'clientId/detail',
+        name: 'ClientDetail',
+        component: () => import('@/pages/home/client/clientId/detail/index.vue'),
+        // meta: {
+        //   title: '用户详情',
+        // },
+      },
+      {
         path: 'comment',
         name: 'Comment',
         component: () => import('@/pages/home/client/comment/index.vue'),
         meta: {
           title: '评论信息',
         },
+      },
+      {
+        path: 'comment/detail',
+        name: 'CommentDetail',
+        component: () => import('@/pages/home/client/comment/detail/index.vue'),
+        // meta: {
+        //   title: '用户详情',
+        // },
       },
     ],
   },

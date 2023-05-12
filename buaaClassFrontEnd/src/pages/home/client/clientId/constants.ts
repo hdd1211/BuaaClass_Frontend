@@ -22,12 +22,12 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     colKey: 'updateTime',
   },
   
-  {
-    title: '参与度',
-    width: 160,
-    ellipsis: true,
-    colKey: 'involve',
-  },
+  // {
+  //   title: '参与度',
+  //   width: 160,
+  //   ellipsis: true,
+  //   colKey: 'involve',
+  // },
  
   {
     align: 'left',

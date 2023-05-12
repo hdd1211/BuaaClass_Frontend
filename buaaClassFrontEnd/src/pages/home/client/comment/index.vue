@@ -181,7 +181,7 @@ const rehandleChange = (changeParams, triggerAndData) => {
   console.log('统一Change', changeParams, triggerAndData);
 };
 const handleClickDetail = () => {
-  router.push('/detail/base');
+  router.push('/home/client/comment/detail');
 };
 const handleClickDelete = (row: { rowIndex: any }) => {
   deleteIdx.value = row.rowIndex;

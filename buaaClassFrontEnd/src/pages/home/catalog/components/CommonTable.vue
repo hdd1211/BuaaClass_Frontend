@@ -169,7 +169,7 @@ const searchForm = {
   type: '',
 };
 const handleSetupContract = () => {
-  router.push('/home/catalog/components/addclass');
+  router.push('/home/catalog/addclass');
 };
 
 const formData = ref({ ...searchForm });
@@ -179,7 +179,7 @@ const hover = true;
 const router = useRouter();
 
 const handleClickDetail = () => {
-  router.push('/home/detail');
+  router.push('/home/catalog/detail');
 };
 
 const pagination = ref({
