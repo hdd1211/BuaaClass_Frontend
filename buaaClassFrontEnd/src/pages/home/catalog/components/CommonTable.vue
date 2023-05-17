@@ -99,7 +99,7 @@
         </template>
 
         <template #op="slotProps">
-          <a class="t-button-link" @click="handleClickDetail()">详情</a>
+          <a class="t-button-link" @click="handleClickDetail(slotProps)">详情</a>
           <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a>
         </template>
       </t-table>
@@ -118,6 +118,7 @@ import { MessagePlugin, PageInfo, PrimaryTableCol, TableRowData } from 'tdesign-
 import { computed, onMounted, ref } from 'vue';
 
 import { getList } from '@/api/list';
+import { getCourseList } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import {
@@ -147,7 +148,8 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
   { 
     title: '课程类别', 
     colKey: 'type', 
-    width: 160 },
+    width: 160,
+  },
   {
     title: '课程代码',
     width: 160,
@@ -178,8 +180,8 @@ const verticalAlign = 'top' as const;
 const hover = true;
 const router = useRouter();
 
-const handleClickDetail = () => {
-  router.push('/home/catalog/detail');
+const handleClickDetail = ({ row }) => {
+  router.push({ path: '/home/catalog/detail', params: { row } });
 };
 
 const pagination = ref({

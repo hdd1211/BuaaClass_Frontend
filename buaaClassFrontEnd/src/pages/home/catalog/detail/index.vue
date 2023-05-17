@@ -34,13 +34,6 @@
       </div>
     </t-card>
 
-    <!-- <t-card title="变更记录" class="container-base-margin-top" :bordered="false">
-      <t-steps class="detail-base-info-steps" layout="vertical" theme="dot" :current="1">
-        <t-step-item title="上传合同附件" content="这里是提示文字" />
-        <t-step-item title="修改合同金额" content="这里是提示文字" />
-        <t-step-item title="新建合同" content="2020-12-01 15:00:00 管理员-李川操作" />
-      </t-steps>
-    </t-card> -->
   </div>
 </template>
 
@@ -70,6 +63,11 @@ const BASE_INFO_DATA = [
   {
     name: '开课学院',
     value: '计算机学院',
+    type: null,
+  },
+  {
+    name: '学分',
+    value: '2',
     type: null,
   },
   {
