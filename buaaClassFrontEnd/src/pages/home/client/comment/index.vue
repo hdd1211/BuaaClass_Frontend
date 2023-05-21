@@ -1,20 +1,52 @@
 <template>
   <div>
     <t-card class="list-card-container" :bordered="false">
-      <t-row justify="space-between">
-        <div class="left-operation-container">
-          <!-- <t-button @click="handleSetupContract"> 新建合同 </t-button> -->
-            <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDelete(slotProps)"> 删除 </t-button>
-          <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
-        </div>
-        <div class="search-input">
-          <t-input v-model="searchValue" placeholder="请输入你需要搜索的内容" clearable>
-            <template #suffix-icon>
-              <search-icon size="16px" />
-            </template>
-          </t-input>
-        </div>
-      </t-row>
+      <t-form ref="form" :label-width="80" colon @reset="onReset" @submit="onSubmit">
+        <t-row :gutter="[30, 30]">
+          <t-col :span="10">
+            <t-row :gutter="[30, 24]">
+              <t-col :span="4">
+                <t-form-item label="评论状态" name="status">
+                  <t-select
+                    v-model="data.status"
+                    class="form-item-content"
+                    :options="COMMENT_STATUS_OPTIONS"
+                    placeholder="请选择评论状态"
+                  />
+                </t-form-item>
+              </t-col>
+              <t-col :span="2" class="operation-container">
+                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
+              </t-col>
+              <t-space>
+                <t-col :span="4">
+                  <div class="search-input">
+                    <t-input v-model="searchValue" placeholder="请输入你需要搜索的内容" clearable>
+                      <template #suffix-icon>
+                        <search-icon size="16px" />
+                      </template>
+                    </t-input>
+                  </div>
+                </t-col>
+              </t-space>
+              <t-space>
+                <t-col :span="2" class="operation-container">
+                  <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
+                </t-col>
+              </t-space>
+            </t-row>
+          </t-col>
+          <t-col :span="4">
+            <t-row>
+              <div class="left-operation-container">
+                  <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDelete(slotProps)"> 删除 </t-button>
+                <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
+              </div>
+            </t-row>
+          </t-col>
+        </t-row>
+      </t-form>
+
       <t-table
         :data="data"
         :columns="COLUMNS"
@@ -96,10 +128,11 @@ import { useRouter } from 'vue-router';
 import { getList } from '@/api/list';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
-import { HEAT_STATUS, SATISFY_STATUS, COMMENT_STATUS } from '@/constants';
+import { HEAT_STATUS, SATISFY_STATUS, COMMENT_STATUS, COMMENT_STATUS_OPTIONS } from '@/constants';
 import { useSettingStore } from '@/store';
 
 import { COLUMNS } from './constants';
+
 
 const store = useSettingStore();
 
