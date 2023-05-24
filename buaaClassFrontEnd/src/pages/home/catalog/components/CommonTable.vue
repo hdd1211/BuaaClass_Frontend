@@ -184,8 +184,9 @@ const verticalAlign = 'top' as const;
 const hover = true;
 const router = useRouter();
 
-const handleClickDetail = ({ row }) => {
-  router.push({ path: '/home/catalog/detail', params: { row } });
+const handleClickDetail = ({row}) => {
+  console.log('get detail')
+  router.push({ path: '/home/catalog/detail', query: {id:row.id} });
 };
 
 const pagination = ref({
@@ -196,7 +197,6 @@ const pagination = ref({
 const confirmVisible = ref(false);
 
 const data = ref([]);
-
 const dataLoading = ref(false);
 const fetchData = async () => {
   dataLoading.value = true;

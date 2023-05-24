@@ -3,6 +3,27 @@ import { MockMethod } from 'vite-plugin-mock';
 
 export default [
   {
+    url: '/api/get_course_by_id',
+    method: 'get',
+    response: () => ({
+      code: 0,
+      data: {
+        ...Mock.mock({
+          'list|1-1': [
+            {
+              
+              id: 'BH00@natural(01, 100)',
+              name: 'buaaer@natural(01, 100)',
+              department: 'buaaer@natural(01, 100)',
+              credit: 'buaaer@natural(01, 100)',
+              teacher: 'buaaer@natural(01, 100)',
+            },
+          ],
+        }),
+      },
+    }),
+  },
+  {
     url: '/api/get-purchase-list',
     method: 'get',
     response: () => ({

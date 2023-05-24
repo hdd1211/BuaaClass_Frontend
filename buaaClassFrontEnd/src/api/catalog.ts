@@ -4,7 +4,8 @@ import { request } from '@/utils/request';
 const Api = {
   CourseList: '/admin/catalog/get_course',
   CourseByName: '/admin/catalog/get_course_by_name',
-  CourseById: '/admin/catalog/get_course_by_id',
+  // CourseById: '/admin/catalog/get_course_by_id',
+  CourseById: '/get_course_by_id',
   ReviewList: '/admin/review/get_review',
   UserList: '/admin/review/get_user'
 };
@@ -16,15 +17,16 @@ export function getCourseList() {
 }
 
 export function getCourseByName(name: string) {
-  return request.get<Course>({
+  return request.get<CourseList>({
     url: Api.CourseByName,
     params: name,
   });
 }
 
-export function getCourseById() {
-  return request.get<Course>({
+export function getCourseById(id) {
+  return request.get<CourseList>({
     url: Api.CourseById,
+    params: id,
   });
 }
 
