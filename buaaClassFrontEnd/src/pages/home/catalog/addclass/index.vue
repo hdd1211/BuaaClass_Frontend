@@ -39,11 +39,8 @@
 
           <!-- 课程代码 -->
           <t-col :span="8">
-            <t-form-item label="课程代码" name="no">
-              <span class="space-item" />
-              <div>
-                <t-input placeholder="请输入课程代码" :style="{ width: '322px' }" />
-              </div>
+           <t-form-item label="课程代码" name="no">
+              <t-input v-model="formData.no" :style="{ width: '322px' }" placeholder="请输入课程名称" />
             </t-form-item>
           </t-col>
 
@@ -104,12 +101,37 @@ import { ref } from 'vue';
 
 import { FORM_RULES, INITIAL_DATA, CLASS_TYPE_OPTIONS, SCHOOL_OPTIONS } from './constants';
 
+
 const formData = ref({ ...INITIAL_DATA });
 
 const onReset = () => {
   MessagePlugin.warning('取消新建');
 };
-const onSubmit = ({ validateResult }) => {
+
+const pagination = ref({
+  defaultPageSize: 20,
+  total: 100,
+  defaultCurrent: 1,
+});
+const confirmVisible = ref(false);
+const data = ref([]);
+const dataLoading = ref(false);
+const onSubmit =async ({ validateResult }) => {
+  dataLoading.value = true;
+  try {
+    const { list } = await getCourseById(formData.value);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+  
+  console.log(formData.value);
   if (validateResult === true) {
     MessagePlugin.success('新建成功');
   }

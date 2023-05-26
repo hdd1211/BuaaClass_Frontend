@@ -4,10 +4,12 @@ import { request } from '@/utils/request';
 const Api = {
   CourseList: '/admin/catalog/get_course',
   CourseByName: '/admin/catalog/get_course_by_name',
-  // CourseById: '/admin/catalog/get_course_by_id',
-  CourseById: '/get_course_by_id',
+  CourseById: '/admin/catalog/get_course_by_id',
+  CourseByType: '/admin/catalog/get_course_by_type',
   ReviewList: '/admin/review/get_review',
-  UserList: '/admin/review/get_user'
+  UserList: '/admin/review/get_user',
+  AddCourse: '/admin/catalog/add_course'
+
 };
 
 export function getCourseList() {
@@ -27,6 +29,13 @@ export function getCourseById(id) {
   return request.get<CourseList>({
     url: Api.CourseById,
     params: id,
+  });
+}
+
+export function getCourseByType(type) {
+  return request.get<CourseList>({
+    url: Api.CourseByType,
+    params: type,
   });
 }
 

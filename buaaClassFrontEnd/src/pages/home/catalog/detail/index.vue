@@ -2,10 +2,11 @@
   <div class="detail-base">
     <t-card title="基本信息" :bordered="false">
       <div class="info-block">
-        <div v-for="(item, index) in data" :key="index" class="info-item">
+        <div v-for="(item, index) in BASE_INFO_DATA" :key="index" class="info-item">
           <h1>{{ item.name }}</h1>
-          <h1>{{ item.id }}</h1>
+          <!-- <h1>{{ item.id }}</h1>
           <h1>{{ item.department }}</h1>
+          <h1>{{ item.teacher }}</h1> -->
           <span
             :class="{
               ['inProgress']: item.type && item.type.value === 'inProgress',
@@ -83,7 +84,7 @@ onMounted(() => {
 const BASE_INFO_DATA = [
   {
     name: '课程名称',
-    value: 'data.value[0]',
+    value: 'data',
     type: null,
   },
   {

@@ -16,7 +16,7 @@
               </t-form-item>
               <div class="left-operation-container">
                 <t-button @click="handleSetupContract"> 新建课程 </t-button>
-                <t-button class="t-button-link" variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDeleteALL(slotProps)"> 删除课程 </t-button>
+                <t-button class="t-button-link" variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDeleteALL()"> 删除课程 </t-button>
                 <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
               <t-dialog
                 v-model:visible="confirmVisible"
@@ -36,7 +36,7 @@
                   placeholder="请输入课程名称"
                   :style="{ minWidth: '134px' }"
                 />
-                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }">  查询  </t-button>
+                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }" onclick="handleClickSearch()">  查询  </t-button>
               </t-form-item>
             </t-col>
             <t-col :span="4">
@@ -122,7 +122,7 @@ import { MessagePlugin, PageInfo, PrimaryTableCol, TableRowData } from 'tdesign-
 import { computed, onMounted, ref } from 'vue';
 
 import { getList } from '@/api/list';
-import { getCourseList } from '@/api/catalog';
+import { getCourseList,getCourseById } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import {
@@ -131,7 +131,7 @@ import {
   CONTRACT_TYPES,
 } from '@/constants';
 import { useSettingStore } from '@/store';
-import { useRouter } from 'vue-router';
+import { useRoute,useRouter } from 'vue-router';
 
 const store = useSettingStore();
 const selectedRowKeys = ref([1, 2]);
@@ -183,10 +183,16 @@ const rowKey = 'index';
 const verticalAlign = 'top' as const;
 const hover = true;
 const router = useRouter();
+const route = useRoute();
 
 const handleClickDetail = ({row}) => {
   console.log('get detail')
   router.push({ path: '/home/catalog/detail', query: {id:row.id} });
+};
+
+const handleClickSearch = ({row}) => {
+  console.log('filter detail')
+  router.push({ path: '/home/catalog', query: {id:row.id} });
 };
 
 const pagination = ref({
@@ -201,6 +207,8 @@ const dataLoading = ref(false);
 const fetchData = async () => {
   dataLoading.value = true;
   try {
+    let query = route.query;
+    
     const { list } = await getList();
     data.value = list;
     pagination.value = {
@@ -263,17 +271,35 @@ onMounted(() => {
 const handleClickDelete = ({ row }) => {
   deleteIdx.value = row.rowIndex;
   confirmVisible.value = true;
+  console.log(row)
 };
-const handleClickDeleteALL = ({ row }) => {
-  deleteIdx.value = row.rowIndex;
-  confirmVisible.value = true;
+const handleClickDeleteALL = () => {
+  // deleteIdx.value = row.rowIndex;
+  // confirmVisible.value = true;
+  console.log(selectedRowKeys.value)
 };
 
 const onReset = (val) => {
+  
   console.log(val);
 };
-const onSubmit = (val) => {
-  console.log(val);
+const onSubmit = async (val) => {
+  dataLoading.value = true;
+  try {
+    let query = route.query;
+    const { list } = await getCourseById(formData.value);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+  
+  console.log(formData.value);
 };
 const rehandlePageChange = (pageInfo: PageInfo, newDataSource: TableRowData[]) => {
   console.log('分页变化', pageInfo, newDataSource);
