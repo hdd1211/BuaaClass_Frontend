@@ -100,10 +100,10 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { ref } from 'vue';
 
 import { FORM_RULES, INITIAL_DATA, CLASS_TYPE_OPTIONS, SCHOOL_OPTIONS } from './constants';
-
-
+import {addCourse, getCourseById} from '@/api/catalog';
+import {useRouter}from 'vue-router'
 const formData = ref({ ...INITIAL_DATA });
-
+const router = useRouter();
 const onReset = () => {
   MessagePlugin.warning('取消新建');
 };
@@ -116,10 +116,10 @@ const pagination = ref({
 const confirmVisible = ref(false);
 const data = ref([]);
 const dataLoading = ref(false);
-const onSubmit =async ({ validateResult }) => {
+const onSubmit = async ({validateResult}) => {
   dataLoading.value = true;
   try {
-    const { list } = await getCourseById(formData.value);
+    const { list } = await addCourse(formData.value);
     data.value = list;
     pagination.value = {
       ...pagination.value,
@@ -131,9 +131,11 @@ const onSubmit =async ({ validateResult }) => {
     dataLoading.value = false;
   }
   
-  console.log(formData.value);
-  if (validateResult === true) {
+  console.log(validateResult ,formData.value);
+  if(validateResult ===true){
     MessagePlugin.success('新建成功');
+    // router.push('/home/catalog');
+    router.back();
   }
 };
 const beforeUpload = (file) => {

@@ -50,3 +50,10 @@ export function getUserList() {
     url: Api.UserList,
   });
 }
+
+export function addCourse(course) {
+  return request.get<CourseList>({
+    url: Api.AddCourse,
+    params: course,
+  });
+}

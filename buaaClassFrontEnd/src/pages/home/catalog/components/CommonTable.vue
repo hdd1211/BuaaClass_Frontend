@@ -190,10 +190,6 @@ const handleClickDetail = ({row}) => {
   router.push({ path: '/home/catalog/detail', query: {id:row.id} });
 };
 
-const handleClickSearch = ({row}) => {
-  console.log('filter detail')
-  router.push({ path: '/home/catalog', query: {id:row.id} });
-};
 
 const pagination = ref({
   defaultPageSize: 20,
@@ -219,6 +215,7 @@ const fetchData = async () => {
     console.log(e);
   } finally {
     dataLoading.value = false;
+
   }
 };
 
