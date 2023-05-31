@@ -1,20 +1,69 @@
 <template>
   <div class="list-common-table">
-    <t-form ref="form" :data="formData" :label-width="80" colon @reset="onReset" @submit="onSubmit">
+    <t-form ref="form" :data="formData_type" :label-width="80" colon @reset="onReset" @submit="onSubmit_type">
       <t-row>
         <t-col :span="11">
           <t-row :gutter="[24, 24]">
+
             <t-col :span="4">
               <t-form-item label="课程类别" name="type">
                 <t-select
-                  v-model="formData.type"
+                  v-model="formData_type.type"
                   class="form-item-content"
                   :options="CLASS_TYPE_OPTIONS"
                   placeholder="请选择课程类别"
                 />
                  <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }">  查询  </t-button>
               </t-form-item>
-              <div class="left-operation-container">
+            </t-col>
+            
+
+          </t-row>
+        </t-col>
+
+        <!-- <t-col :span="2" class="operation-container">
+          <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
+          <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
+        </t-col> -->
+      </t-row>
+    </t-form>
+
+    <t-form ref="form" :data="formData_name" :label-width="80" colon @reset="onReset" @submit="onSubmit_name">
+      <t-col :span="4">
+             <t-form-item label="课程名称" name="name">
+                <t-input
+                  v-model="formData_name.name"
+                  class="form-item-content"
+                  type="search"
+                  placeholder="请输入课程名称"
+                  :style="{ minWidth: '134px' }"
+                />
+                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }">  查询  </t-button>
+              </t-form-item>
+            </t-col>
+    </t-form>
+
+    <t-form ref="form" :data="formData_no" :label-width="80" colon @reset="onReset" @submit="onSubmit_no">
+      
+      <t-col :span="4">
+             <t-form-item label="课程代码" name="no">
+                <t-input
+                  v-model="formData_no.no"
+                  class="form-item-content"
+                  type="search"
+                  placeholder="请输入课程代码"
+                  :style="{ minWidth: '134px' }"
+                />
+                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }">  查询  </t-button>
+                <t-col :span="2" :push="1">
+                   <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
+                </t-col> 
+              </t-form-item>
+            </t-col>
+    </t-form>
+
+            
+    <div class="left-operation-container">
                 <t-button @click="handleSetupContract"> 新建课程 </t-button>
                 <t-button class="t-button-link" variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDeleteALL()"> 删除课程 </t-button>
                 <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
@@ -26,43 +75,7 @@
                 @confirm="onConfirmDeleteALL"
               />
               </div>
-            </t-col>
-            <t-col :span="4">
-             <t-form-item label="课程名称" name="name">
-                <t-input
-                  v-model="formData.name"
-                  class="form-item-content"
-                  type="search"
-                  placeholder="请输入课程名称"
-                  :style="{ minWidth: '134px' }"
-                />
-                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }" onclick="handleClickSearch()">  查询  </t-button>
-              </t-form-item>
-            </t-col>
-            <t-col :span="4">
-             <t-form-item label="课程代码" name="no">
-                <t-input
-                  v-model="formData.no"
-                  class="form-item-content"
-                  type="search"
-                  placeholder="请输入课程代码"
-                  :style="{ minWidth: '134px' }"
-                />
-                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }">  查询  </t-button>
-                <t-col span="2" push="1">
-                   <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
-                </t-col> 
-              </t-form-item>
-            </t-col>
-          </t-row>
-        </t-col>
 
-        <!-- <t-col :span="2" class="operation-container">
-          <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
-          <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
-        </t-col> -->
-      </t-row>
-    </t-form>
 
     <div class="table-container">
       <t-table
@@ -169,16 +182,22 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
   },
 ];
 
-const searchForm = {
+const searchForm_name = {
   name: '',
-  no: undefined,
+};
+const searchForm_no = {
+  no: '',
+};
+const searchForm_type = {
   type: '',
 };
 const handleSetupContract = () => {
   router.push('/home/catalog/addclass');
 };
 
-const formData = ref({ ...searchForm });
+const formData_name = ref({ ...searchForm_name });
+const formData_no = ref({ ...searchForm_no });
+const formData_type = ref({ ...searchForm_type });
 const rowKey = 'index';
 const verticalAlign = 'top' as const;
 const hover = true;
@@ -280,11 +299,11 @@ const onReset = (val) => {
   
   console.log(val);
 };
-const onSubmit = async (val) => {
+const onSubmit_name = async (val) => {
   dataLoading.value = true;
   try {
     let query = route.query;
-    const { list } = await getCourseById(formData.value);
+    const { list } = await getCourseById(formData_name.value);
     data.value = list;
     pagination.value = {
       ...pagination.value,
@@ -296,7 +315,43 @@ const onSubmit = async (val) => {
     dataLoading.value = false;
   }
   
-  console.log(formData.value);
+  console.log(formData_name.value);
+};
+const onSubmit_type = async (val) => {
+  dataLoading.value = true;
+  try {
+    let query = route.query;
+    const { list } = await getCourseById(formData_type.value);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+  
+  console.log(formData_type.value);
+};
+const onSubmit_no = async (val) => {
+  dataLoading.value = true;
+  try {
+    let query = route.query;
+    const { list } = await getCourseById(formData_no.value);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+  
+  console.log(formData_no.value);
 };
 const rehandlePageChange = (pageInfo: PageInfo, newDataSource: TableRowData[]) => {
   console.log('分页变化', pageInfo, newDataSource);
