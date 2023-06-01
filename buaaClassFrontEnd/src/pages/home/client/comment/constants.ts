@@ -10,18 +10,32 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     fixed: 'left',
   },
   {
-    title: '标题',
-    align: 'left',
-    width: 260,
-    colKey: 'heading',
-    //fixed: 'left',
+    title: '评论者',
+    width: 160,
+    ellipsis: true,
+    colKey: 'username',
+  },
+  {
+    title: '发表时间',
+    width: 160,
+    ellipsis: true,
+    colKey: 'time',
   },
   {
     title: '课程名称',
     align: 'left',
     width: 260,
-    colKey: 'classname',
-    // fixed: 'left',
+    colKey: 'coursename',
+  },
+  {
+    title: '学期',
+    colKey: 'semester',
+    width: 160 
+  },
+  { 
+    title: '总评分', 
+    colKey: 'total', 
+    width: 160 
   },
   {
     title: '内容质量',
@@ -30,37 +44,26 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
   },
   { 
     title: '工作量', 
-    colKey: 'load', 
+    colKey: 'workload', 
     width: 160 
   },
   { 
-    title: '考核/给分', 
-    colKey: 'score', 
-    width: 160 
-  },
-  { 
-    title: '总体评价', 
-    colKey: 'comment', 
+    title: '考核给分', 
+    colKey: 'assessment', 
     width: 160 
   },
   {
-    title: '评论内容',
-    width: 160,
-    ellipsis: true,
-    colKey: 'commentinfo',
+    title: '标题',
+    align: 'left',
+    width: 260,
+    colKey: 'title',
   },
-  {
-    title: '评论者',
-    width: 160,
-    ellipsis: true,
-    colKey: 'name',
-  },
-  {
-    title: '评论时间',
-    width: 160,
-    ellipsis: true,
-    colKey: 'time',
-  },
+  // {
+  //   title: '正文',
+  //   width: 160,
+  //   ellipsis: true,
+  //   colKey: 'text',
+  // },
   {
     title: '热度',
     width: 160,

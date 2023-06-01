@@ -3,9 +3,9 @@ import { request } from '@/utils/request';
 
 const Api = {
   CourseList: '/admin/catalog/get_course',
-  CourseByName: '/admin/catalog/get_course_by_name',
-  CourseById: '/admin/catalog/get_course_by_id',
-  CourseByType: '/admin/catalog/get_course_by_type',
+  CourseByName: '/admin/catalog/get_by_name',
+  CourseById: '/admin/catalog/get_by_id',
+  CourseByType: '/admin/catalog/get_by_type',
   AddCourse: '/admin/catalog/add_course',
   AddBatch: '/admin/catalog/add_batch ',
   DeleteCourse: '/admin/catalog/del_course',

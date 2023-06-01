@@ -43,12 +43,12 @@
             </t-col>
     </t-form>
 
-    <t-form ref="form" :data="formData_no" :label-width="80" colon @reset="onReset" @submit="onSubmit_no">
+    <t-form ref="form" :data="formData_id" :label-width="80" colon @reset="onReset" @submit="onSubmit_id">
       
       <t-col :span="4">
-             <t-form-item label="课程代码" name="no">
+             <t-form-item label="课程代码" name="id">
                 <t-input
-                  v-model="formData_no.no"
+                  v-model="formData_id.id"
                   class="form-item-content"
                   type="search"
                   placeholder="请输入课程代码"
@@ -134,7 +134,6 @@
 import { MessagePlugin, PageInfo, PrimaryTableCol, TableRowData } from 'tdesign-vue-next';
 import { computed, onMounted, ref } from 'vue';
 
-import { getList } from '@/api/list';
 import { getCourseList,getCourseById,getCourseByName,getCourseByType,deleteBatch,deleteCourse } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
@@ -160,7 +159,7 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     width: 280,
     ellipsis: true,
     align: 'left',
-    colKey: 'classname',
+    colKey: 'name',
   },
   { 
     title: '课程类别', 
@@ -171,7 +170,7 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     title: '课程代码',
     width: 160,
     ellipsis: true,
-    colKey: 'no',
+    colKey: 'id',
   },
   {
     align: 'left',
@@ -185,15 +184,15 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
 const searchForm_name = {
   name: '',
 };
-const searchForm_no = {
-  no: '',
+const searchForm_id = {
+  id: '',
 };
 const searchForm_type = {
   type: '',
 };
 
 const formData_name = ref({ ...searchForm_name });
-const formData_no = ref({ ...searchForm_no });
+const formData_id = ref({ ...searchForm_id });
 const formData_type = ref({ ...searchForm_type });
 const rowKey = 'index';
 const verticalAlign = 'top' as const;
@@ -207,6 +206,16 @@ const handleAddClass = () => {
 const handleClickDetail = ({row}) => {
   console.log('get detail')
   router.push({ path: '/home/catalog/detail', query: {id:row.id} });
+};
+const handleClickDelete = ({ row }) => {
+  deleteIdx.value = row.rowIndex;
+  confirmVisible.value = true;
+  console.log(row)
+};
+const handleClickDeleteALL = () => {
+  // deleteIdx.value = selectedRowKeys;
+  // confirmVisible.value = true;
+  console.log(selectedRowKeys.value)
 };
 
 
@@ -224,7 +233,7 @@ const fetchData = async () => {
   try {
     let query = route.query;
     
-    const { list } = await getList();
+    const { list } = await getCourseList();
     data.value = list;
     pagination.value = {
       ...pagination.value,
@@ -234,7 +243,6 @@ const fetchData = async () => {
     console.log(e);
   } finally {
     dataLoading.value = false;
-
   }
 };
 
@@ -285,21 +293,10 @@ onMounted(() => {
   fetchData();
 });
 
-const handleClickDelete = ({ row }) => {
-  deleteIdx.value = row.rowIndex;
-  confirmVisible.value = true;
-  console.log(row)
-};
-const handleClickDeleteALL = () => {
-  // deleteIdx.value = selectedRowKeys;
-  // confirmVisible.value = true;
-  console.log(selectedRowKeys.value)
-};
-
 const onReset = (val) => {
-  
   console.log(val);
 };
+
 const onSubmit_name = async (val) => {
   dataLoading.value = true;
   try {
@@ -315,7 +312,6 @@ const onSubmit_name = async (val) => {
   } finally {
     dataLoading.value = false;
   }
-  
   console.log(formData_name.value);
 };
 const onSubmit_type = async (val) => {
@@ -333,14 +329,13 @@ const onSubmit_type = async (val) => {
   } finally {
     dataLoading.value = false;
   }
-  
   console.log(formData_type.value);
 };
-const onSubmit_no = async (val) => {
+const onSubmit_id = async (val) => {
   dataLoading.value = true;
   try {
     let query = route.query;
-    const { list } = await getCourseById(formData_no.value);
+    const { list } = await getCourseById(formData_id.value);
     data.value = list;
     pagination.value = {
       ...pagination.value,
@@ -351,9 +346,9 @@ const onSubmit_no = async (val) => {
   } finally {
     dataLoading.value = false;
   }
-  
-  console.log(formData_no.value);
+  console.log(formData_id.value);
 };
+
 const rehandlePageChange = (pageInfo: PageInfo, newDataSource: TableRowData[]) => {
   console.log('分页变化', pageInfo, newDataSource);
 };

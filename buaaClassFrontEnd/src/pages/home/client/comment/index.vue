@@ -67,25 +67,25 @@
           <t-tag v-if="row.status === COMMENT_STATUS.DELETE" theme="default">已删除</t-tag>
         </template>
 
+        <template #total="{ row }">
+          <t-tag v-if="row.total === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.total === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.total === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
+        </template>
         <template #quality="{ row }">
           <t-tag v-if="row.quality === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
           <t-tag v-if="row.quality === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
           <t-tag v-if="row.quality === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
         </template>
-        <template #load="{ row }">
-          <t-tag v-if="row.load === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
-          <t-tag v-if="row.load === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.load === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
+        <template #workload="{ row }">
+          <t-tag v-if="row.workload === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.workload === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.workload === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
         </template>
-        <template #comment="{ row }">
-          <t-tag v-if="row.comment === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
-          <t-tag v-if="row.comment === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.comment === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
-        </template>
-        <template #score="{ row }">
-          <t-tag v-if="row.score === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
-          <t-tag v-if="row.score === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.score === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
+        <template #assessment="{ row }">
+          <t-tag v-if="row.assessment === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.assessment === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
+          <t-tag v-if="row.assessment === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
         </template>
         <template #heat="{ row }">
           <div v-if="row.heat === HEAT_STATUS.UP" class="payment-col">
@@ -124,7 +124,6 @@ import { SearchIcon } from 'tdesign-icons-vue-next';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { computed, onMounted, ref } from 'vue';
 
-import { getList } from '@/api/list';
 import { getReviewList,getReviewById,getReviewByCourse } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
@@ -150,7 +149,7 @@ const dataLoading = ref(false);
 const fetchData = async () => {
   dataLoading.value = true;
   try {
-    const { list } = await getList();
+    const { list } = await getReviewList();
     data.value = list;
     pagination.value = {
       ...pagination.value,
