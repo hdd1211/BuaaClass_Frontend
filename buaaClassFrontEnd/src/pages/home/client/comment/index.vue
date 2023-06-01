@@ -97,8 +97,8 @@
         </template>
 
         <template #op="slotProps">
-          <a class="t-button-link" @click="handleClickDetail()">详情</a>
-          <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a>
+          <a class="t-button-link" @click="handleClickDetail()"> 详情 </a>
+          <a class="t-button-link" @click="handleClickDelete(slotProps)"> 删除 </a>
         </template>
       </t-table>
     </t-card>
@@ -123,13 +123,14 @@ export default {
 import { SearchIcon } from 'tdesign-icons-vue-next';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { computed, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { getList } from '@/api/list';
+import { getReviewList,getReviewById,getReviewByCourse } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import { HEAT_STATUS, SATISFY_STATUS, COMMENT_STATUS, COMMENT_STATUS_OPTIONS } from '@/constants';
 import { useSettingStore } from '@/store';
+import { useRoute, useRouter } from 'vue-router';
 
 import { COLUMNS } from './constants';
 
@@ -161,6 +162,18 @@ const fetchData = async () => {
     dataLoading.value = false;
   }
 };
+onMounted(() => {
+  fetchData();
+});
+
+const searchForm_id = {
+  id: '',
+};
+const searchForm_courseid = {
+  courseid: '',
+};
+const formData_id = ref({ ...searchForm_id });
+const formData_courseid = ref({ ...searchForm_courseid });
 
 const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
@@ -171,15 +184,12 @@ const confirmBody = computed(() => {
   return '';
 });
 
-onMounted(() => {
-  fetchData();
-});
-
 const confirmVisible = ref(false);
 
 const selectedRowKeys = ref([1, 2]);
 
 const router = useRouter();
+const route = useRoute();
 
 const resetIdx = () => {
   deleteIdx.value = -1;
@@ -213,12 +223,14 @@ const rehandlePageChange = (curr, pageInfo) => {
 const rehandleChange = (changeParams, triggerAndData) => {
   console.log('统一Change', changeParams, triggerAndData);
 };
-const handleClickDetail = () => {
-  router.push('/home/client/comment/detail');
+const handleClickDetail = ({row}) => {
+  console.log('get comment detail')
+  router.push({ path: '/home/client/comment/detail', query: {id:row.id} });
 };
 const handleClickDelete = (row: { rowIndex: any }) => {
   deleteIdx.value = row.rowIndex;
   confirmVisible.value = true;
+  console.log('delete comment')
 };
 
 const headerAffixedTop = computed(

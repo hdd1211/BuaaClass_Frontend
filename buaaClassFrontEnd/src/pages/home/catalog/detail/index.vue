@@ -49,7 +49,6 @@ export default {
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import{getPurchaseList} from '@/api/detail'
 import { getCourseById } from '@/api/catalog';
 import { useRoute, useRouter } from 'vue-router';
 import { getParams } from 'tdesign-vue-next/es/utils/render-tnode';
@@ -81,6 +80,7 @@ const fetchData = async () => {
 onMounted(() => {
   fetchData();
 });
+
 const BASE_INFO_DATA = [
   {
     name: '课程名称',

@@ -3,7 +3,62 @@ import { MockMethod } from 'vite-plugin-mock';
 
 export default [
   {
-    url: '/api/admin/catalog/get_course_by_id',
+    url: '/api/admin/catalog/get_course',
+    method: 'get',
+    response: () => ({
+      code: 0,
+      data: {
+        ...Mock.mock({
+          'list|2-2': [
+            {
+              'heading|1':["比较充实，有所收获","不错"],
+              'status|1': '@natural(0, 2)',
+              'commentinfo|1':["课程听感：助教和老师都很细心负责，会认真的答疑+讲解。","锻炼自学能力(*/ω＼*)","助教超好！！！"],
+              'index|+1': 1,
+              'quality|1': '@natural(0, 2)',
+              'load|1': '@natural(0, 2)',
+              'score|1': '@natural(0, 2)',
+              'comment|1': '@natural(0, 2)',
+              no: 'BH00@natural(01, 100)',
+              name: 'buaaer@natural(01, 100)',
+              'classname|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
+              'type|1': '@natural(0, 17)',
+              'heat|1': '@natural(0, 1)',
+              'contractType|1': '@natural(0, 2)',
+              logTime: '2022-@natural(01,03)-@natural(00,29) @date("HH:mm:ss")',
+              updateTime: '2023-@natural(01,03)-@natural(00,29) @date("HH:mm:ss")',
+              time: '2023-@natural(03,04)-@natural(00,29) @date("HH:mm:ss")',
+              amount: '@natural(10, 500)',
+              adminName: '@cname()',
+            },
+          ],
+        }),
+      },
+    }),
+  },
+  {
+    url: '/api/admin/catalog/get_by_id',
+    method: 'get',
+    response: () => ({
+      code: 0,
+      data: {
+        ...Mock.mock({
+          'list|1-1': [
+            {
+              
+              id: 'BH00@natural(01, 100)',
+              name: 'buaaer@natural(01, 100)',
+              department: 'buaaer@natural(01, 100)',
+              credit: 'buaaer@natural(01, 100)',
+              teacher: 'buaaer@natural(01, 100)',
+            },
+          ],
+        }),
+      },
+    }),
+  },
+  {
+    url: '/api/admin/review/get_by_id',
     method: 'get',
     // response: () => ({
     //   code: 0,
@@ -53,121 +108,38 @@ export default [
       },
     }),
   },
-  {
-    url: '/api/get-purchase-list',
-    method: 'get',
-    response: () => ({
-      code: 0,
-      data: {
-        ...Mock.mock({
-          'list|100-100': [
-            {
-              index: /S20201228115950[0-9][0-9][0-9]/,
-              pdName: 'Macbook',
-              pdNum: 'p_tmp_60a637cd0d',
-              'purchaseNum|1-100': 100,
-              adminName: '财务部111',
-              updateTime: '2020-05-20@date("HH:mm:ss")',
-              pdType: '电子产品',
-            },
-            {
-              index: /S20201228115950[0-9][0-9][0-9]/,
-              pdName: 'Macbook',
-              pdNum: 'p_tmp_60a637cd0d',
-              'purchaseNum|1-100': 100,
-              adminName: '财务部',
-              updateTime: '2020-05-20@date("HH:mm:ss")',
-            },
-          ],
-        }),
-      },
-    }),
-  },
-  {
-    url: '/api/admin/catalog/add_course',
-    method: 'get',
-    // response: () => ({
-    //   code: 0,
-    //   data: {
-    //     ...Mock.mock({
-    //       'list|1-1': [
-    //         {
+  // {
+  //   url: '/api/admin/catalog/add_course',
+  //   method: 'get',
+  //   response: () => ({
+  //     code: 0,
+  //     data: {
+  //       ...Mock.mock({
+  //         'list|1-1': [
+  //           {
               
-    //           id: 'BH00@natural(01, 100)',
-    //           name: 'buaaer@natural(01, 100)',
-    //           department: 'buaaer@natural(01, 100)',
-    //           credit: 'buaaer@natural(01, 100)',
-    //           teacher: 'buaaer@natural(01, 100)',
-    //         },
-    //       ],
-    //     }),
-    //   },
-    // }),
-    response: () => ({
-      code: 0,
-      data: {
-        ...Mock.mock({
-          'list|2-2': [
-            {
-              'heading|1':["比较充实，有所收获","不错"],
-              'status|1': '@natural(0, 2)',
-              'commentinfo|1':["课程听感：助教和老师都很细心负责，会认真的答疑+讲解。","锻炼自学能力(*/ω＼*)","助教超好！！！"],
-              'index|+1': 1,
-              'quality|1': '@natural(0, 2)',
-              'load|1': '@natural(0, 2)',
-              'score|1': '@natural(0, 2)',
-              'comment|1': '@natural(0, 2)',
-              no: 'BH00@natural(01, 100)',
-              name: 'buaaer@natural(01, 100)',
-              'classname|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
-              'type|1': '@natural(0, 17)',
-              'heat|1': '@natural(0, 1)',
-              'contractType|1': '@natural(0, 2)',
-              logTime: '2022-@natural(01,03)-@natural(00,29) @date("HH:mm:ss")',
-              updateTime: '2023-@natural(01,03)-@natural(00,29) @date("HH:mm:ss")',
-              time: '2023-@natural(03,04)-@natural(00,29) @date("HH:mm:ss")',
-              amount: '@natural(10, 500)',
-              adminName: '@cname()',
-            },
-          ],
-        }),
-      },
-    }),
-  },
+  //             id: 'BH00@natural(01, 100)',
+  //             name: 'buaaer@natural(01, 100)',
+  //             department: 'buaaer@natural(01, 100)',
+  //             credit: 'buaaer@natural(01, 100)',
+  //             teacher: 'buaaer@natural(01, 100)',
+  //           },
+  //         ],
+  //       }),
+  //     },
+  //   }),
+  // },
 
   {
     url: '/admin/catalog/add_course',
     method: 'post',
-    // response: () => ({
-    //   code: 0,
-    //   data: {
-    //     ...Mock.mock({
-    //       'list|1-100': [
-    //         {
-    //           'heading|1':["比较充实，有所收获","不错"],
-    //           'status|1': '@natural(0, 2)',
-    //           'commentinfo|1':["课程听感：助教和老师都很细心负责，会认真的答疑+讲解。","锻炼自学能力(*/ω＼*)","助教超好！！！"],
-    //           'index|+1': 1,
-    //           'quality|1': '@natural(0, 2)',
-    //           'load|1': '@natural(0, 2)',
-    //           'score|1': '@natural(0, 2)',
-    //           'comment|1': '@natural(0, 2)',
-    //           no: 'BH00@natural(01, 100)',
-    //           name: 'buaaer@natural(01, 100)',
-    //           'classname|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
-    //           'type|1': '@natural(0, 17)',
-    //           'heat|1': '@natural(0, 1)',
-    //           'contractType|1': '@natural(0, 2)',
-    //           logTime: '2022-@natural(01,03)-@natural(00,29) @date("HH:mm:ss")',
-    //           updateTime: '2023-@natural(01,03)-@natural(00,29) @date("HH:mm:ss")',
-    //           time: '2023-@natural(03,04)-@natural(00,29) @date("HH:mm:ss")',
-    //           amount: '@natural(10, 500)',
-    //           adminName: '@cname()',
-    //         },
-    //       ],
-    //     }),
-    //   },
-    // }),
+    timeout: 2000,
+    response: {
+      code: 0,
+      data: {
+        name: 'vben',
+      },
+    },
   },
 
   {
@@ -198,6 +170,37 @@ export default [
               time: '2023-@natural(03,04)-@natural(00,29) @date("HH:mm:ss")',
               amount: '@natural(10, 500)',
               adminName: '@cname()',
+            },
+          ],
+        }),
+      },
+    }),
+  },
+  
+  {
+    url: '/api/get-purchase-list',
+    method: 'get',
+    response: () => ({
+      code: 0,
+      data: {
+        ...Mock.mock({
+          'list|100-100': [
+            {
+              index: /S20201228115950[0-9][0-9][0-9]/,
+              pdName: 'Macbook',
+              pdNum: 'p_tmp_60a637cd0d',
+              'purchaseNum|1-100': 100,
+              adminName: '财务部111',
+              updateTime: '2020-05-20@date("HH:mm:ss")',
+              pdType: '电子产品',
+            },
+            {
+              index: /S20201228115950[0-9][0-9][0-9]/,
+              pdName: 'Macbook',
+              pdNum: 'p_tmp_60a637cd0d',
+              'purchaseNum|1-100': 100,
+              adminName: '财务部',
+              updateTime: '2020-05-20@date("HH:mm:ss")',
             },
           ],
         }),

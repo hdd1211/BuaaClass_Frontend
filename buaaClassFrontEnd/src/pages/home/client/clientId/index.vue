@@ -46,7 +46,7 @@
         </template>
 
         <template #op="slotProps">
-          <a class="t-button-link" @click="handleClickDetail()">详情</a>
+          <a class="t-button-link" @click="handleClickDetail(slotProps)">详情</a>
           <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a>
         </template>
       </t-table>
@@ -161,8 +161,9 @@ const rehandlePageChange = (curr, pageInfo) => {
 const rehandleChange = (changeParams, triggerAndData) => {
   console.log('统一Change', changeParams, triggerAndData);
 };
-const handleClickDetail = () => {
-  router.push('/home/client/clientId/detail');
+const handleClickDetail = ({row}) => {
+  console.log('get detail')
+  router.push({ path: '/home/client/clientId/detail', query: {id:row.id} });
 };
 const handleSetupContract = () => {
   router.push('/form/base');
