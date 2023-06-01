@@ -2,19 +2,19 @@
   <div class="detail-base">
     <t-card title="用户信息" :bordered="false">
       <div class="info-block">
-        <div v-for="(item, index) in BASE_INFO_DATA" :key="index" class="info-item">
-          <h1>{{ item.name }}</h1>
-          <span
-            :class="{
-              ['inProgress']: item.type && item.type.value === 'inProgress',
-              ['pdf']: item.type && item.type.value === 'pdf',
-            }"
-          >
-            <i v-if="item.type && item.type.key === 'contractStatus'" />
-            {{ item.value }}
-          </span>
+        <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>用户名称</h1>
+            <span>{{ item.username }}</span>
+          </div> 
+           <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>用户ID</h1>
+            <span>{{ item.id }}</span>
+          </div> 
+           <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>用户密码</h1>
+            <span>{{ item.password}}</span>
+          </div> 
         </div>
-      </div>
     </t-card>
 
     <t-card title="点过赞的评价" class="container-base-margin-top" :bordered="false">
@@ -64,21 +64,25 @@ const pagination = ref({
   defaultCurrent: 1,
 });
 const data = ref([]);
+
 const dataLoading = ref(false);
 const fetchData = async () => {
   dataLoading.value = true;
   try {
     let query = route.query;
+    
     const { list } = await getUserById(query.id);
     data.value = list;
     pagination.value = {
       ...pagination.value,
       total: list.length,
     };
+    console.log(data.value[0]['name']);
   } catch (e) {
     console.log(e);
   } finally {
     dataLoading.value = false;
+    
   }
 };
 onMounted(() => {
@@ -88,7 +92,7 @@ onMounted(() => {
 const BASE_INFO_DATA = [
   {
     name: '用户唯一标识',
-    value: '123',
+    value: 'a',
     type: null,
   },
   {

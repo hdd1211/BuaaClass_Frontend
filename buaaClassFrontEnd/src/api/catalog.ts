@@ -15,8 +15,8 @@ const Api = {
   ReviewByStatus: '/admin/review/get_by_status',
   ReviewByCourse: '/admin/review/get_by_course',
   DeleteReview: '/admin/catalog/del_review',
-  UserList: '/admin/review/get_user',
-  UserById: '/admin/review/get_by_id'
+  UserList: '/admin/user/get_user',
+  UserById: '/admin/user/get_by_id'
 };
 
 export function getCourseList() {
