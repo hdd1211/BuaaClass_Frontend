@@ -6,10 +6,14 @@ const Api = {
   CourseByName: '/admin/catalog/get_course_by_name',
   CourseById: '/admin/catalog/get_course_by_id',
   CourseByType: '/admin/catalog/get_course_by_type',
+  AddCourse: '/admin/catalog/add_course',
+  DeleteCourse: '/admin/catalog/del_course',
   ReviewList: '/admin/review/get_review',
+  ReviewById: '/admin/review/get_by_id',
+  ReviewByCourse: '/admin/review/get_by_course',
+  DeleteReview: '/admin/catalog/del_review',
   UserList: '/admin/review/get_user',
-  AddCourse: '/admin/catalog/add_course'
-
+  UserById: '/admin/review/get_by_id'
 };
 
 export function getCourseList() {
@@ -39,9 +43,37 @@ export function getCourseByType(type) {
   });
 }
 
+export function addCourse(course) {
+  return request.post<CourseList>({
+    url: Api.AddCourse,
+    params: course,
+  });
+}
+
+export function deleteCourse(course) {
+  return request.delete<CourseList>({
+    url: Api.DeleteCourse,
+    params: course,
+  });
+}
+
 export function getReviewList() {
   return request.get<ReviewList>({
     url: Api.ReviewList,
+  });
+}
+
+export function getReviewById(id) {
+  return request.get<ReviewList>({
+    url: Api.ReviewById,
+    params: id,
+  });
+}
+
+export function getReviewByCourse(course_id) {
+  return request.get<ReviewList>({
+    url: Api.ReviewByCourse,
+    params: course_id,
   });
 }
 
@@ -51,9 +83,10 @@ export function getUserList() {
   });
 }
 
-export function addCourse(course) {
-  return request.get<CourseList>({
-    url: Api.AddCourse,
-    params: course,
+export function getUserById(id) {
+  return request.get<UserList>({
+    url: Api.UserById,
+    params: id,
   });
 }
+
