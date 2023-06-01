@@ -1,6 +1,6 @@
 <template>
   <div class="list-common-table">
-    <t-form ref="form" :data="formData_type" :label-width="80" colon @reset="onReset" @submit="onSubmit_type">
+    <t-form ref="form" :data="formData_type" label-width="80" colon @reset="onReset" @submit="onSubmit_type">
       <t-row>
         <t-col :span="11">
           <t-row :gutter="[24, 24]">
@@ -135,7 +135,7 @@ import { MessagePlugin, PageInfo, PrimaryTableCol, TableRowData } from 'tdesign-
 import { computed, onMounted, ref } from 'vue';
 
 import { getList } from '@/api/list';
-import { getCourseList,getCourseById } from '@/api/catalog';
+import { getCourseList,getCourseById,getCourseByName,getCourseByType,deleteBatch,deleteCourse } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import {
@@ -251,11 +251,12 @@ const resetIdx = () => {
   deleteIdx.value = -1;
 };
 
-const onConfirmDelete = () => {
+const onConfirmDelete = async () => {
   // 真实业务请发起请求
   data.value.splice(deleteIdx.value, 1);
   pagination.value.total = data.value.length;
   const selectedIdx = selectedRowKeys.value.indexOf(deleteIdx.value);
+  // await deleteCourse(1);
   if (selectedIdx > -1) {
     selectedRowKeys.value.splice(selectedIdx, 1);
   }
@@ -290,7 +291,7 @@ const handleClickDelete = ({ row }) => {
   console.log(row)
 };
 const handleClickDeleteALL = () => {
-  // deleteIdx.value = row.rowIndex;
+  // deleteIdx.value = selectedRowKeys;
   // confirmVisible.value = true;
   console.log(selectedRowKeys.value)
 };
@@ -303,7 +304,7 @@ const onSubmit_name = async (val) => {
   dataLoading.value = true;
   try {
     let query = route.query;
-    const { list } = await getCourseById(formData_name.value);
+    const { list } = await getCourseByName(formData_name.value);
     data.value = list;
     pagination.value = {
       ...pagination.value,
@@ -321,7 +322,7 @@ const onSubmit_type = async (val) => {
   dataLoading.value = true;
   try {
     let query = route.query;
-    const { list } = await getCourseById(formData_type.value);
+    const { list } = await getCourseByType(formData_type.value);
     data.value = list;
     pagination.value = {
       ...pagination.value,

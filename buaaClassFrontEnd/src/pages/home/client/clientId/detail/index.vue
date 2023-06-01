@@ -51,6 +51,40 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { computed, onMounted, ref } from 'vue';
+import{getPurchaseList} from '@/api/detail'
+import { getUserById } from '@/api/catalog';
+import { useRoute, useRouter } from 'vue-router';
+import { getParams } from 'tdesign-vue-next/es/utils/render-tnode';
+import axios from 'axios';
+const route = useRoute();
+const pagination = ref({
+  defaultPageSize: 20,
+  total: 100,
+  defaultCurrent: 1,
+});
+const data = ref([]);
+const dataLoading = ref(false);
+const fetchData = async () => {
+  dataLoading.value = true;
+  try {
+    let query = route.query;
+    const { list } = await getUserById(query.id);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+};
+onMounted(() => {
+  fetchData();
+});
+
 const BASE_INFO_DATA = [
   {
     name: '用户唯一标识',
