@@ -3,6 +3,12 @@ import { PrimaryTableCol, TableRowData } from 'tdesign-vue-next';
 export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
   { colKey: 'row-select', type: 'multiple', width: 64, fixed: 'left' },
   {
+    title: '评论代码',
+    align: 'left',
+    width: 160,
+    colKey: 'id',
+  },
+  {
     title: '状态',
     align: 'left',
     width: 160,
@@ -20,6 +26,12 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     width: 160,
     ellipsis: true,
     colKey: 'time',
+  },  
+  {
+    title: '课程代码',
+    align: 'left',
+    width: 260,
+    colKey: 'courseid',
   },
   {
     title: '课程名称',

@@ -12,6 +12,7 @@ const Api = {
   DeleteBatch: '/admin/catalog/del_batch ',
   ReviewList: '/admin/review/get_review',
   ReviewById: '/admin/review/get_by_id',
+  ReviewByStatus: '/admin/review/get_by_status',
   ReviewByCourse: '/admin/review/get_by_course',
   DeleteReview: '/admin/catalog/del_review',
   UserList: '/admin/review/get_user',
@@ -82,6 +83,13 @@ export function getReviewById(id) {
   return request.get<ReviewList>({
     url: Api.ReviewById,
     params: id,
+  });
+}
+
+export function getReviewByStatus(status) {
+  return request.get<ReviewList>({
+    url: Api.ReviewByStatus,
+    params: status,
   });
 }
 

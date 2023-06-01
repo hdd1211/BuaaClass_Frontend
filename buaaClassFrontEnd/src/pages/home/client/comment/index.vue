@@ -1,14 +1,41 @@
 <template>
   <div>
     <t-card class="list-card-container" :bordered="false">
-      <t-form ref="form" :label-width="80" colon @reset="onReset" @submit="onSubmit">
+      <t-form ref="form" :data="formData_id" :label-width="80" colon @reset="onReset" @submit="onSubmit">
+        <t-row :gutter="[30, 30]">
+          <t-col :span="10">
+            <t-row :gutter="[30, 24]">
+              <t-col :span="4">
+                <t-form-item label="评论代码" name="id">
+                  <t-input
+                  v-model="formData_id.id"
+                  class="form-item-content"
+                  type="search"
+                  placeholder="请输入评论代码"
+                  :style="{ minWidth: '134px' }"
+                />
+                </t-form-item>
+              </t-col>
+              <t-col :span="2" class="operation-container">
+                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
+              </t-col>              
+              <t-col :span="2" :pull="1" class="operation-container">
+                <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
+              </t-col>
+            </t-row>
+          </t-col>
+        </t-row>
+      </t-form>
+      <t-space></t-space>
+
+      <t-form ref="form" :data="formData_status" :label-width="80" colon @reset="onReset" @submit="onSubmit">
         <t-row :gutter="[30, 30]">
           <t-col :span="10">
             <t-row :gutter="[30, 24]">
               <t-col :span="4">
                 <t-form-item label="评论状态" name="status">
                   <t-select
-                    v-model="data.status"
+                    v-model="formData_status.status"
                     class="form-item-content"
                     :options="COMMENT_STATUS_OPTIONS"
                     placeholder="请选择评论状态"
@@ -18,34 +45,51 @@
               <t-col :span="2" class="operation-container">
                 <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
               </t-col>
-              <t-space>
-                <t-col :span="4">
-                  <div class="search-input">
-                    <t-input v-model="searchValue" placeholder="请输入你需要搜索的内容" clearable>
-                      <template #suffix-icon>
-                        <search-icon size="16px" />
-                      </template>
-                    </t-input>
-                  </div>
-                </t-col>
-              </t-space>
-              <t-space>
-                <t-col :span="2" class="operation-container">
-                  <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
-                </t-col>
-              </t-space>
-            </t-row>
-          </t-col>
-          <t-col :span="4">
-            <t-row>
-              <div class="left-operation-container">
-                  <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDeleteALL()"> 删除 </t-button>
-                <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
-              </div>
+              <t-col :span="2" :pull="1" class="operation-container">
+                <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
+              </t-col>
             </t-row>
           </t-col>
         </t-row>
       </t-form>
+      <t-space></t-space>
+
+      <t-form ref="form" :data="formData_courseid" :label-width="80" colon @reset="onReset" @submit="onSubmit">
+        <t-row :gutter="[30, 30]">
+          <t-col :span="10">
+            <t-row :gutter="[30, 24]">
+              <t-col :span="4">
+                <t-form-item label="课程代码" name="courseid">
+                  <t-input
+                  v-model="formData_courseid.courseid"
+                  class="form-item-content"
+                  type="search"
+                  placeholder="请输入课程代码"
+                  :style="{ minWidth: '134px' }"
+                />
+                </t-form-item>
+              </t-col>
+              <t-col :span="2" class="operation-container">
+                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
+              </t-col>
+              <t-col :span="2" :pull="1" class="operation-container">
+                <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
+              </t-col>
+            </t-row>
+          </t-col>
+        </t-row>
+      </t-form>
+      <t-space></t-space>
+
+      
+          <t-col :span="4">
+            <t-row>
+              <div class="left-operation-container">
+                  <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDeleteALL()"> 删除 </t-button>
+                <p v-if="!!selectedRowKeys.length" class="selected-count"> 已选{{ selectedRowKeys.length }}项 </p>
+              </div>
+            </t-row>
+          </t-col>
 
       <t-table
         :data="data"
@@ -62,9 +106,9 @@
         @select-change="rehandleSelectChange"
       >
         <template #status="{ row }">
-          <t-tag v-if="row.status === COMMENT_STATUS.UNREPORT" theme="success">未举报</t-tag>
-          <t-tag v-if="row.status === COMMENT_STATUS.REPORT" theme="danger">已举报</t-tag>
-          <t-tag v-if="row.status === COMMENT_STATUS.DELETE" theme="default">已删除</t-tag>
+          <t-tag v-if="row.status === COMMENT_STATUS.UNREPORT" theme="success"> 未举报 </t-tag>
+          <t-tag v-if="row.status === COMMENT_STATUS.REPORT" theme="danger"> 已举报 </t-tag>
+          <t-tag v-if="row.status === COMMENT_STATUS.DELETE" theme="default"> 已删除 </t-tag>
         </template>
 
         <template #total="{ row }">
@@ -97,7 +141,7 @@
         </template>
 
         <template #op="slotProps">
-          <a class="t-button-link" @click="handleClickDetail()"> 详情 </a>
+          <a class="t-button-link" @click="handleClickDetail(slotProps)"> 详情 </a>
           <a class="t-button-link" @click="handleClickDelete(slotProps)"> 删除 </a>
         </template>
       </t-table>
@@ -124,7 +168,7 @@ import { SearchIcon } from 'tdesign-icons-vue-next';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { computed, onMounted, ref } from 'vue';
 
-import { getReviewList,getReviewById,getReviewByCourse } from '@/api/catalog';
+import { getReviewList,getReviewById,getReviewByStatus,getReviewByCourse } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import { HEAT_STATUS, SATISFY_STATUS, COMMENT_STATUS, COMMENT_STATUS_OPTIONS } from '@/constants';
@@ -136,7 +180,19 @@ import { COLUMNS } from './constants';
 
 const store = useSettingStore();
 
-const data = ref([]);
+const searchForm_id = {
+  id: '',
+};
+const searchForm_status = {
+  status: '',
+};
+const searchForm_courseid = {
+  courseid: '',
+};
+
+const formData_id = ref({ ...searchForm_id });
+const formData_status = ref({ ...searchForm_status });
+const formData_courseid = ref({ ...searchForm_courseid });
 const pagination = ref({
   defaultPageSize: 20,
   total: 100,
@@ -145,6 +201,7 @@ const pagination = ref({
 
 const searchValue = ref('');
 
+const data = ref([]);
 const dataLoading = ref(false);
 const fetchData = async () => {
   dataLoading.value = true;
@@ -165,14 +222,61 @@ onMounted(() => {
   fetchData();
 });
 
-const searchForm_id = {
-  id: '',
+const onReset = (val) => {
+  console.log(val);
 };
-const searchForm_courseid = {
-  courseid: '',
+
+const onSubmit_id = async (val) => {
+  dataLoading.value = true;
+  try {
+    let query = route.query;
+    const { list } = await getReviewById(formData_id.value);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+  console.log(formData_id.value);
 };
-const formData_id = ref({ ...searchForm_id });
-const formData_courseid = ref({ ...searchForm_courseid });
+const onSubmit_status = async (val) => {
+  dataLoading.value = true;
+  try {
+    let query = route.query;
+    const { list } = await getReviewByStatus(formData_status.value);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+  console.log(formData_type.value);
+};
+const onSubmit_courseid = async (val) => {
+  dataLoading.value = true;
+  try {
+    let query = route.query;
+    const { list } = await getReviewByCourse(formData_courseid.value);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+  console.log(formData_courseid.value);
+};
 
 const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
