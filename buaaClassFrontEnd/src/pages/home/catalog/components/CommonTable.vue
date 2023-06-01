@@ -133,7 +133,7 @@
 <script setup lang="ts">
 import { MessagePlugin, PageInfo, PrimaryTableCol, TableRowData } from 'tdesign-vue-next';
 import { computed, onMounted, ref } from 'vue';
-
+import {getList}from '@/api/list'
 import { getCourseList,getCourseById,getCourseByName,getCourseByType,deleteBatch,deleteCourse } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
@@ -146,7 +146,7 @@ import { useSettingStore } from '@/store';
 import { useRoute,useRouter } from 'vue-router';
 
 const store = useSettingStore();
-const selectedRowKeys = ref([1, 2]);
+const selectedRowKeys = ref([]);
 const rehandleSelectChange = (val: number[]) => {
   selectedRowKeys.value = val;
 };
@@ -194,7 +194,7 @@ const searchForm_type = {
 const formData_name = ref({ ...searchForm_name });
 const formData_id = ref({ ...searchForm_id });
 const formData_type = ref({ ...searchForm_type });
-const rowKey = 'index';
+const rowKey = 'id';
 const verticalAlign = 'top' as const;
 const hover = true;
 const router = useRouter();
@@ -210,7 +210,7 @@ const handleClickDetail = ({row}) => {
 const handleClickDelete = ({ row }) => {
   deleteIdx.value = row.rowIndex;
   confirmVisible.value = true;
-  console.log(row)
+  console.log(row.id)
 };
 const handleClickDeleteALL = () => {
   // deleteIdx.value = selectedRowKeys;

@@ -39,7 +39,7 @@
           <t-col :span="4">
             <t-row>
               <div class="left-operation-container">
-                  <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDelete(slotProps)"> 删除 </t-button>
+                  <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="handleClickDeleteALL()"> 删除 </t-button>
                 <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
               </div>
             </t-row>
@@ -185,7 +185,7 @@ const confirmBody = computed(() => {
 
 const confirmVisible = ref(false);
 
-const selectedRowKeys = ref([1, 2]);
+const selectedRowKeys = ref([]);
 
 const router = useRouter();
 const route = useRoute();
@@ -211,7 +211,7 @@ const onCancel = () => {
   resetIdx();
 };
 
-const rowKey = 'index';
+const rowKey = 'id';
 
 const rehandleSelectChange = (val: number[]) => {
   selectedRowKeys.value = val;
@@ -230,6 +230,11 @@ const handleClickDelete = (row: { rowIndex: any }) => {
   deleteIdx.value = row.rowIndex;
   confirmVisible.value = true;
   console.log('delete comment')
+};
+const handleClickDeleteALL = () => {
+  // deleteIdx.value = selectedRowKeys;
+  // confirmVisible.value = true;
+  console.log(selectedRowKeys.value)
 };
 
 const headerAffixedTop = computed(

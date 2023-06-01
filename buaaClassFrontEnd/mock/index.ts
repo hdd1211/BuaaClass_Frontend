@@ -9,11 +9,11 @@ export default [
       code: 0,
       data: {
         ...Mock.mock({
-          'list|100-100': [
+          'list|5-5': [
             {
-              id: 'BH00@natural(01, 100)',
+              'id|1': 'BH00@natural(01, 100)',
               'name|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
-              'type|1': '@natural(0, 17)',
+              
             },
           ],
         }),
@@ -124,8 +124,9 @@ export default [
       code: 0,
       data: {
         ...Mock.mock({
-          'list|100-100': [
+          'list|5-5': [
             {
+              id:'@natural(0,1000)',
               'status|1': '@natural(0, 2)',
               username: 'buaaer@natural(01, 100)',
               time: '2023-@natural(03,04)-@natural(00,29) @date("HH:mm:ss")',
