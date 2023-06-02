@@ -17,8 +17,6 @@
               </t-form-item>
               
             </t-col>
-            
-
           </t-row>
         </t-col>
 
@@ -184,6 +182,7 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
 
 const searchForm_name = {
   name: '',
+  file:[],
 };
 const searchForm_id = {
   id: '',

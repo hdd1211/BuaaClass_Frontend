@@ -14,7 +14,7 @@
         <t-form-item label="上传文件" name="files">
           <t-upload
             v-model="formData1.files"
-            action="http://localhost:3002/api/admin/catalog/add_batch"
+            :method ="POST"
             tips="请上传xls或xlsx文件，大小在60M以内"
             :size-limit="{ size: 60, unit: 'MB' }"
             :format-response="formatResponse"
