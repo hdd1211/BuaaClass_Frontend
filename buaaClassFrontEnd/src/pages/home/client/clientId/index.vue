@@ -7,13 +7,13 @@
           <!-- <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length"> 删除 </t-button>
           <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p> -->
         </div>
-        <div class="search-input">
+        <!-- <div class="search-input">
           <t-input v-model="searchValue" placeholder="请输入你需要搜索的内容" clearable>
             <template #suffix-icon>
               <search-icon size="16px" />
             </template>
           </t-input>
-        </div>
+        </div> -->
       </t-row>
       <t-table
         :data="data"

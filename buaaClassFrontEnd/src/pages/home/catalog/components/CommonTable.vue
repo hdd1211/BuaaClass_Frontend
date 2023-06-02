@@ -100,7 +100,6 @@
           <p v-if="row.type ===  CLASS_TYPE.A3"> 语言类 </p>
           <p v-if="row.type ===  CLASS_TYPE.A4"> 外语类 </p>
           <p v-if="row.type ===  CLASS_TYPE.A5"> 英语分级 </p>
-
           <p v-if="row.type ===  CLASS_TYPE.B1"> 思政、军理类 </p>
           <p v-if="row.type ===  CLASS_TYPE.B2"> 体育类 </p>
           <p v-if="row.type ===  CLASS_TYPE.B3"> 核心通识类 </p>
@@ -111,7 +110,6 @@
           <p v-if="row.type ===  CLASS_TYPE.B8"> Office Hours </p>
           <p v-if="row.type ===  CLASS_TYPE.B9"> 素质教育理论必修课 </p>
           <p v-if="row.type ===  CLASS_TYPE.B10"> 素质教育实践必修课 </p>
-
           <p v-if="row.type ===  CLASS_TYPE.C1"> 核心专业类 </p>
           <p v-if="row.type ===  CLASS_TYPE.C2"> 一般专业类 </p>
           <p v-if="row.type ===  CLASS_TYPE.C3"> 科研课堂 </p>
@@ -146,13 +144,11 @@ import {
 } from '@/constants';
 import { useSettingStore } from '@/store';
 import { useRoute,useRouter } from 'vue-router';
-
 const store = useSettingStore();
 const selectedRowKeys = ref([]);
 const rehandleSelectChange = (val: number[]) => {
   selectedRowKeys.value = val;
 };
-
 const COLUMNS: PrimaryTableCol<TableRowData>[] = [
   { colKey: 'row-select', type: 'multiple', width: 64, fixed: 'left' },
   {
@@ -182,7 +178,6 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     title: '操作',
   },
 ];
-
 const searchForm_name = {
   name: '',
   file:[],
@@ -193,7 +188,6 @@ const searchForm_id = {
 const searchForm_type = {
   type: '',
 };
-
 const formData_name = ref({ ...searchForm_name });
 const formData_id = ref({ ...searchForm_id });
 const formData_type = ref({...searchForm_type});
@@ -202,7 +196,6 @@ const verticalAlign = 'top' as const;
 const hover = true;
 const router = useRouter();
 const route = useRoute();
-
 const handleAddClass = () => {
   router.push('/home/catalog/addclass');
 };
@@ -222,15 +215,12 @@ const handleClickDeleteALL = async() => {
   await deleteBatch(selectedRowKeys.value);
   console.log(selectedRowKeys.value)
 };
-
-
 const pagination = ref({
   defaultPageSize: 20,
   total: 100,
   defaultCurrent: 1,
 });
 const confirmVisible = ref(false);
-
 const data = ref([]);
 const dataLoading = ref(false);
 const fetchData = async () => {
@@ -250,7 +240,6 @@ const fetchData = async () => {
     dataLoading.value = false;
   }
 };
-
 const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
   if (deleteIdx.value > -1) {
@@ -259,11 +248,9 @@ const confirmBody = computed(() => {
   }
   return '';
 });
-
 const resetIdx = () => {
   deleteIdx.value = -1;
 };
-
 const onConfirmDelete = async () => {
   // 真实业务请发起请求
   data.value.splice(deleteIdx.value, 1);
@@ -289,19 +276,15 @@ const onConfirmDeleteALL = () => {
   MessagePlugin.success('删除成功');
   resetIdx();
 };
-
 const onCancel = () => {
   resetIdx();
 };
-
 onMounted(() => {
   fetchData();
 });
-
 const onReset = (val) => {
   console.log(val);
 };
-
 const onSubmit_name = async (val) => {
   dataLoading.value = true;
   try {
@@ -353,7 +336,6 @@ const onSubmit_id = async (val) => {
   }
   console.log(formData_id.value.id);
 };
-
 const rehandlePageChange = (pageInfo: PageInfo, newDataSource: TableRowData[]) => {
   console.log('分页变化', pageInfo, newDataSource);
 };
@@ -363,7 +345,6 @@ const rehandleChange = (changeParams, triggerAndData) => {
 const rehandleClickOp = ({ text, row }) => {
   console.log(text, row);
 };
-
 const headerAffixedTop = computed(
   () =>
     ({
@@ -374,7 +355,6 @@ const headerAffixedTop = computed(
 </script>
 
 <style lang="less" scoped>
-
 .selected-count {
   display: inline-block;
   margin-left: var(--td-comp-margin-l);
@@ -384,16 +364,13 @@ const headerAffixedTop = computed(
   background-color: var(--td-bg-color-container);
   padding: var(--td-comp-paddingTB-xxl) var(--td-comp-paddingLR-xxl);
   border-radius: var(--td-radius-medium);
-
   .table-container {
     margin-top: var(--td-comp-margin-xxl);
   }
 }
-
 .form-item-content {
   width: 100%;
 }
-
 .operation-container {
   display: flex;
   justify-content: flex-end;
@@ -405,10 +382,8 @@ const headerAffixedTop = computed(
     }
   }
 }
-
 .payment-col {
   display: flex;
-
   .trend-container {
     display: flex;
     align-items: center;

@@ -1,7 +1,7 @@
 import { PrimaryTableCol, TableRowData } from 'tdesign-vue-next';
 
 export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
-  { colKey: 'row-select', type: 'multiple', width: 64, fixed: 'left' },
+  // { colKey: 'row-select', type: 'multiple', width: 64, fixed: 'left' },
   {
     title: '用户名称',
     align: 'left',
