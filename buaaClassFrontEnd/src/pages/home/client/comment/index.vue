@@ -1,7 +1,7 @@
 <template>
   <div>
     <t-card class="list-card-container" :bordered="false">
-      <t-form ref="form" :data="formData_id" :label-width="80" colon @reset="onReset" @submit="onSubmit">
+      <t-form ref="form" :data="formData_id" :label-width="80" colon @reset="onReset" @submit="onSubmit_id">
         <t-row :gutter="[30, 30]">
           <t-col :span="10">
             <t-row :gutter="[30, 24]">
@@ -28,7 +28,7 @@
       </t-form>
       <t-space></t-space>
 
-      <t-form ref="form" :data="formData_status" :label-width="80" colon @reset="onReset" @submit="onSubmit">
+      <t-form ref="form" :data="formData_status" :label-width="80" colon @reset="onReset" @submit="onSubmit_status">
         <t-row :gutter="[30, 30]">
           <t-col :span="10">
             <t-row :gutter="[30, 24]">
@@ -54,7 +54,7 @@
       </t-form>
       <t-space></t-space>
 
-      <t-form ref="form" :data="formData_courseid" :label-width="80" colon @reset="onReset" @submit="onSubmit">
+      <t-form ref="form" :data="formData_courseid" :label-width="80" colon @reset="onReset" @submit="onSubmit_courseid">
         <t-row :gutter="[30, 30]">
           <t-col :span="10">
             <t-row :gutter="[30, 24]">
@@ -72,6 +72,33 @@
               <t-col :span="2" class="operation-container">
                 <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
               </t-col>
+              <t-col :span="2" :pull="1" class="operation-container">
+                <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
+              </t-col>
+            </t-row>
+          </t-col>
+        </t-row>
+      </t-form>
+      <t-space></t-space>
+
+      <t-form ref="form" :data="formData_id" :label-width="80" colon @reset="onReset" @submit="onSubmit_word">
+        <t-row :gutter="[30, 30]">
+          <t-col :span="10">
+            <t-row :gutter="[30, 24]">
+              <t-col :span="4">
+                <t-form-item label="评论关键词" name="id">
+                  <t-input
+                  v-model="formData_word.word"
+                  class="form-item-content"
+                  type="search"
+                  placeholder="请输入评论关键词"
+                  :style="{ minWidth: '134px' }"
+                />
+                </t-form-item>
+              </t-col>
+              <t-col :span="2" class="operation-container">
+                <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
+              </t-col>              
               <t-col :span="2" :pull="1" class="operation-container">
                 <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
               </t-col>
@@ -168,7 +195,7 @@ import { SearchIcon } from 'tdesign-icons-vue-next';
 import { MessagePlugin } from 'tdesign-vue-next';
 import { computed, onMounted, ref } from 'vue';
 
-import { getReviewList,getReviewById,getReviewByStatus,getReviewByCourse } from '@/api/catalog';
+import { getReviewList,getReviewById,getReviewByStatus,getReviewByCourse,getReviewByWord } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import { HEAT_STATUS, SATISFY_STATUS, COMMENT_STATUS, COMMENT_STATUS_OPTIONS } from '@/constants';
@@ -189,10 +216,15 @@ const searchForm_status = {
 const searchForm_courseid = {
   courseid: '',
 };
+const searchForm_word = {
+  word: '',
+};
 
 const formData_id = ref({ ...searchForm_id });
 const formData_status = ref({ ...searchForm_status });
 const formData_courseid = ref({ ...searchForm_courseid });
+const formData_word = ref({ ...searchForm_word });
+
 const pagination = ref({
   defaultPageSize: 20,
   total: 100,
@@ -258,7 +290,7 @@ const onSubmit_status = async (val) => {
   } finally {
     dataLoading.value = false;
   }
-  console.log(formData_type.value);
+  console.log(formData_status.value);
 };
 const onSubmit_courseid = async (val) => {
   dataLoading.value = true;
@@ -277,12 +309,29 @@ const onSubmit_courseid = async (val) => {
   }
   console.log(formData_courseid.value);
 };
+const onSubmit_word = async (val) => {
+  dataLoading.value = true;
+  try {
+    let query = route.query;
+    const { list } = await getReviewByWord(formData_word.value);
+    data.value = list;
+    pagination.value = {
+      ...pagination.value,
+      total: list.length,
+    };
+  } catch (e) {
+    console.log(e);
+  } finally {
+    dataLoading.value = false;
+  }
+  console.log(formData_word.value);
+};
 
 const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
   if (deleteIdx.value > -1) {
-    const { name } = data.value[deleteIdx.value];
-    return `${name}的此条评论将被删除，且无法恢复`;
+    const { id } = data.value[deleteIdx.value];
+    return `id为${id}的评论将被删除，且无法恢复`;
   }
   return '';
 });

@@ -14,6 +14,7 @@ const Api = {
   ReviewById: '/admin/review/get_by_id',
   ReviewByStatus: '/admin/review/get_by_status',
   ReviewByCourse: '/admin/review/get_by_course',
+  ReviewByWord: '/admin/review/get_by_word',
   DeleteReview: '/admin/catalog/del_review',
   UserList: '/admin/user/get_user',
   UserById: '/admin/user/get_by_id'
@@ -97,6 +98,13 @@ export function getReviewByCourse(course_id) {
   return request.get<ReviewList>({
     url: Api.ReviewByCourse,
     params: course_id,
+  });
+}
+
+export function getReviewByWord(word) {
+  return request.get<ReviewList>({
+    url: Api.ReviewByWord,
+    params: word,
   });
 }
 
