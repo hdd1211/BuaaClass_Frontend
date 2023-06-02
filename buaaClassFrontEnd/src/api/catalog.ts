@@ -61,7 +61,7 @@ export function addBatch(coursebatch) {
 }
 
 export function deleteCourse(course) {
-  return request.delete<CourseList>({
+  return request.delete({
     url: Api.DeleteCourse,
     params: course,
   });

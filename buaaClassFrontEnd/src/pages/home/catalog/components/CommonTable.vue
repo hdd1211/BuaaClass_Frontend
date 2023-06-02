@@ -1,10 +1,6 @@
 <template>
   <div class="list-common-table">
     <t-form ref="form" :data="formData_type" label-width="80" colon @reset="onReset" @submit="onSubmit_type">
-      <t-row>
-        <t-col :span="11">
-          <t-row :gutter="[24, 24]">
-
             <t-col :span="4">
               <t-form-item label="课程类别" name="type">
                 <t-select
@@ -12,20 +8,22 @@
                   class="form-item-content"
                   :options="CLASS_TYPE_OPTIONS"
                   placeholder="请选择课程类别"
+                  :style="{ minWidth: '134px' }"
                 />
                  <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }">  查询  </t-button>
+                  <t-col :span="2" :push="1">
+                   <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
+                </t-col> 
               </t-form-item>
               
             </t-col>
-          </t-row>
-        </t-col>
 
         <!-- <t-col :span="2" class="operation-container">
           <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }"> 查询 </t-button>
           <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
         </t-col> -->
-      </t-row>
     </t-form>
+    <t-space></t-space>
 
     <t-form ref="form" :data="formData_name" :label-width="80" colon @reset="onReset" @submit="onSubmit_name">
       <t-col :span="4">
@@ -38,9 +36,13 @@
                   :style="{ minWidth: '134px' }"
                 />
                 <t-button theme="primary" type="submit" :style="{ marginLeft: 'var(--td-comp-margin-s)' }">  查询  </t-button>
+                 <t-col :span="2" :push="1">
+                   <t-button type="reset" variant="base" theme="default"> 重置 </t-button>
+                </t-col> 
               </t-form-item>
             </t-col>
     </t-form>
+    <t-space></t-space>
 
     <t-form ref="form" :data="formData_id" :label-width="80" colon @reset="onReset" @submit="onSubmit_id">
       
@@ -60,6 +62,7 @@
               </t-form-item>
             </t-col>
     </t-form>
+    <t-space></t-space>
 
             
     <div class="left-operation-container">
@@ -91,7 +94,7 @@
         @change="rehandleChange"
         @select-change="rehandleSelectChange"
       >
-        <template #type="{ row }">
+        <!-- <template #type="{ row }">
           <p v-if="row.type ===  CLASS_TYPE.A1"> 数学与自然科学类 </p>
           <p v-if="row.type ===  CLASS_TYPE.A2"> 工程基础类 </p>
           <p v-if="row.type ===  CLASS_TYPE.A3"> 语言类 </p>
@@ -112,7 +115,7 @@
           <p v-if="row.type ===  CLASS_TYPE.C1"> 核心专业类 </p>
           <p v-if="row.type ===  CLASS_TYPE.C2"> 一般专业类 </p>
           <p v-if="row.type ===  CLASS_TYPE.C3"> 科研课堂 </p>
-        </template>
+        </template> -->
 
         <template #op="slotProps">
           <a class="t-button-link" @click="handleClickDetail(slotProps)">详情</a>
@@ -207,14 +210,16 @@ const handleClickDetail = ({row}) => {
   console.log('get detail')
   router.push({ path: '/home/catalog/detail', query: {id:row.id} });
 };
-const handleClickDelete = ({ row }) => {
+const handleClickDelete = async({ row }) => {
   deleteIdx.value = row.rowIndex;
   confirmVisible.value = true;
+  await deleteCourse(row.id);
   console.log(row.id)
 };
-const handleClickDeleteALL = () => {
+const handleClickDeleteALL = async() => {
   // deleteIdx.value = selectedRowKeys;
   // confirmVisible.value = true;
+  await deleteBatch(selectedRowKeys.value);
   console.log(selectedRowKeys.value)
 };
 

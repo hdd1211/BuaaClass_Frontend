@@ -13,6 +13,7 @@ export default [
             {
               'id|1': 'BH00@natural(01, 100)',
               'name|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
+              'type|1':['一般专业','核心通识']
               
             },
           ],
@@ -95,6 +96,46 @@ export default [
         }),
       },
     }),
+  },
+  {
+    url: '/api/admin/catalog/get_by_type',
+    method: 'get',
+    response: () => ({
+      code: 0,
+      data: {
+        ...Mock.mock({
+          'list|1-1': [
+            {
+              'name|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
+              'type|1': '@natural(0, 17)',
+              id: 'BH00@natural(01, 100)',
+            },
+          ],
+        }),
+      },
+    }),
+  },
+  {
+    url: '/api/admin/catalog/delete_course',
+    method: 'delete',
+    timeout: 2000,
+    response: {
+      code: 1,
+      data: {
+        name: 'vben',
+      },
+    },
+  },
+  {
+    url: '/api/admin/catalog/delete_batch',
+    method: 'delete',
+    timeout: 2000,
+    response: {
+      code: 0,
+      data: {
+        name: 'vben',
+      },
+    },
   },
   {
     url: '/api/admin/catalog/add_batch',
