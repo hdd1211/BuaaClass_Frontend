@@ -11,17 +11,18 @@
       @reset="onReset"
       @submit="onSubmit"
     >
-        <t-form-item label="上传文件" name="files">
+        <t-form-item label="批量上传" name="files">
           <t-upload
             v-model="formData1.files"
             :method ="POST"
+            action = "/api/admin/catalog/add_batch"
             tips="请上传xls或xlsx文件，大小在60M以内"
             :size-limit="{ size: 60, unit: 'MB' }"
             :format-response="formatResponse"
             :before-upload="beforeUpload"
             @fail="handleFail"
           >
-            <t-button class="form-submit-upload-btn" variant="outline"> 上传合同文件 </t-button>
+            <t-button class="form-submit-upload-btn" variant="outline"> 上传课程文件 </t-button>
           </t-upload>
         </t-form-item>
   </t-form>
@@ -101,17 +102,20 @@
         <t-form-item label="备注" name="comment">
           <t-textarea v-model="formData.comment" :height="124" placeholder="请输入备注" />
         </t-form-item>
+        <t-space></t-space>
+          <t-button theme="primary" class="form-submit-confirm" type="submit"> 确认 </t-button>
+          <t-button type="reset" class="form-submit-cancel" theme="default" variant="base"> 取消 </t-button>
       </div>
     </div>
     
-         <div class="form-submit-container">
+         <!-- <div class="form-submit-container">
       <div class="form-submit-sub">
         <div class="form-submit-left">
           <t-button theme="primary" class="form-submit-confirm" type="submit"> 确认 </t-button>
           <t-button type="reset" class="form-submit-cancel" theme="default" variant="base"> 取消 </t-button>
         </div>
       </div>
-    </div>
+    </div> -->
   </t-form>
   
 </template>
