@@ -281,8 +281,8 @@ const onSubmit_courseid = async (val) => {
 const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
   if (deleteIdx.value > -1) {
-    const { name } = data.value[deleteIdx.value];
-    return `${name}的此条评论将被删除，且无法恢复`;
+    const { id } = data.value[deleteIdx.value];
+    return `id为${id}的评论将被删除，且无法恢复`;
   }
   return '';
 });
