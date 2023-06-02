@@ -193,7 +193,7 @@ const searchForm_type = {
 
 const formData_name = ref({ ...searchForm_name });
 const formData_id = ref({ ...searchForm_id });
-const formData_type = ref({ ...searchForm_type });
+const formData_type = ref({...searchForm_type});
 const rowKey = 'id';
 const verticalAlign = 'top' as const;
 const hover = true;
@@ -329,7 +329,7 @@ const onSubmit_type = async (val) => {
   } finally {
     dataLoading.value = false;
   }
-  console.log(formData_type.value);
+  console.log(formData_type.value.type);
 };
 const onSubmit_id = async (val) => {
   dataLoading.value = true;
@@ -346,7 +346,7 @@ const onSubmit_id = async (val) => {
   } finally {
     dataLoading.value = false;
   }
-  console.log(formData_id.value);
+  console.log(formData_id.value.id);
 };
 
 const rehandlePageChange = (pageInfo: PageInfo, newDataSource: TableRowData[]) => {
