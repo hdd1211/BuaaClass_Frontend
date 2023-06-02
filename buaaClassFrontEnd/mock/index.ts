@@ -21,6 +21,23 @@ export default [
     }),
   },
   {
+    url: '/api/admin/user/get_user',
+    method: 'get',
+    response: () => ({
+      code: 0,
+      data: {
+        ...Mock.mock({
+          'list|1-20': [
+            {
+              username:'张三@natural(01, 100)',
+              id: 'BH00@natural(01, 100)',
+            },
+          ],
+        }),
+      },
+    }),
+  },
+  {
     url: '/api/admin/user/get_by_id',
     method: 'get',
     response: () => ({
@@ -30,7 +47,7 @@ export default [
           'list|1-1': [
             {
               username:'张三@natural(01, 100)',
-              'name|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
+              'agree_reviews|1': ['comment111'],
               'type|1': '@natural(0, 17)',
               id: 'BH00@natural(01, 100)',
               password: 'pass@natural(01, 100)',
@@ -50,8 +67,11 @@ export default [
           'list|1-1': [
             {
               'name|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
-              'type|1': '@natural(0, 17)',
+              'type|1': ["一般专业","核心专业"],
               id: 'BH00@natural(01, 100)',
+              'department|1':["计算机学院","人工智能学院","宇航学院"],
+              'teacher_info|1':["张三","李四"],
+              credit:'@natural(1, 4)',
             },
           ],
         }),
@@ -77,7 +97,18 @@ export default [
     }),
   },
   {
-    url: '/admin/catalog/add_course',
+    url: '/api/admin/catalog/add_batch',
+    method: 'post',
+    timeout: 2000,
+    response: {
+      code: 0,
+      data: {
+        name: 'vben',
+      },
+    },
+  },
+  {
+    url: '/api/admin/catalog/add_course',
     method: 'post',
     timeout: 2000,
     response: {

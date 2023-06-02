@@ -4,8 +4,8 @@
       <t-row justify="space-between">
         <div class="left-operation-container">
           <!-- <t-button @click="handleSetupContract"> 批量选择 </t-button> -->
-          <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length"> 删除 </t-button>
-          <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
+          <!-- <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length"> 删除 </t-button>
+          <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p> -->
         </div>
         <div class="search-input">
           <t-input v-model="searchValue" placeholder="请输入你需要搜索的内容" clearable>
@@ -47,7 +47,7 @@
 
         <template #op="slotProps">
           <a class="t-button-link" @click="handleClickDetail(slotProps)">详情</a>
-          <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a>
+          <!-- <a class="t-button-link" @click="handleClickDelete(slotProps)">删除</a> -->
         </template>
       </t-table>
     </t-card>
@@ -75,6 +75,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { getList } from '@/api/list';
+import { getUserList } from '@/api/catalog';
 import Trend from '@/components/trend/index.vue';
 import { prefix } from '@/config/global';
 import { CONTRACT_PAYMENT_TYPES, CONTRACT_STATUS, CONTRACT_TYPES } from '@/constants';
@@ -97,7 +98,7 @@ const dataLoading = ref(false);
 const fetchData = async () => {
   dataLoading.value = true;
   try {
-    const { list } = await getList();
+    const { list } = await getUserList();
     data.value = list;
     pagination.value = {
       ...pagination.value,
@@ -113,8 +114,8 @@ const fetchData = async () => {
 const deleteIdx = ref(-1);
 const confirmBody = computed(() => {
   if (deleteIdx.value > -1) {
-    const { name } = data.value[deleteIdx.value];
-    return `删除后，${name}的所有信息将被清空，且无法恢复`;
+    const { username } = data.value[deleteIdx.value];
+    return `删除后，${username}的所有信息将被清空，且无法恢复`;
   }
   return '';
 });
@@ -125,7 +126,7 @@ onMounted(() => {
 
 const confirmVisible = ref(false);
 
-const selectedRowKeys = ref([1, 2]);
+const selectedRowKeys = ref([]);
 
 const router = useRouter();
 
@@ -150,7 +151,7 @@ const onCancel = () => {
   resetIdx();
 };
 
-const rowKey = 'index';
+const rowKey = 'id';
 
 const rehandleSelectChange = (val: number[]) => {
   selectedRowKeys.value = val;

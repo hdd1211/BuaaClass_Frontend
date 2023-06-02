@@ -6,21 +6,21 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
     title: '用户名称',
     align: 'left',
     width: 320,
-    colKey: 'name',
+    colKey: 'username',
     fixed: 'left',
   },
   { 
-    title: '注册时间', 
-    colKey: 'logTime', 
+    title: '用户ID', 
+    colKey: 'id', 
     width: 160 
   },
 
-  {
-    title: '最近一次访问时间',
-    width: 160,
-    ellipsis: true,
-    colKey: 'updateTime',
-  },
+  // {
+  //   title: '最近一次访问时间',
+  //   width: 160,
+  //   ellipsis: true,
+  //   colKey: 'updateTime',
+  // },
   
   // {
   //   title: '参与度',

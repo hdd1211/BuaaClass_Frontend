@@ -1,4 +1,31 @@
 <template>
+
+     <t-col :span="6">
+        <t-form
+      ref="form"
+      class="base-form"
+      :data="formData1"
+      :rules="FORM_RULES"
+      label-align="top"
+      :label-width="100"
+      @reset="onReset"
+      @submit="onSubmit"
+    >
+        <t-form-item label="上传文件" name="files">
+          <t-upload
+            v-model="formData1.files"
+            action="http://localhost:3002/api/admin/catalog/add_batch"
+            tips="请上传xls或xlsx文件，大小在60M以内"
+            :size-limit="{ size: 60, unit: 'MB' }"
+            :format-response="formatResponse"
+            :before-upload="beforeUpload"
+            @fail="handleFail"
+          >
+            <t-button class="form-submit-upload-btn" variant="outline"> 上传合同文件 </t-button>
+          </t-upload>
+        </t-form-item>
+  </t-form>
+</t-col>
   <t-form
     ref="form"
     class="base-form"
@@ -74,11 +101,10 @@
         <t-form-item label="备注" name="comment">
           <t-textarea v-model="formData.comment" :height="124" placeholder="请输入备注" />
         </t-form-item>
-
       </div>
     </div>
-
-    <div class="form-submit-container">
+    
+         <div class="form-submit-container">
       <div class="form-submit-sub">
         <div class="form-submit-left">
           <t-button theme="primary" class="form-submit-confirm" type="submit"> 确认 </t-button>
@@ -87,6 +113,7 @@
       </div>
     </div>
   </t-form>
+  
 </template>
 
 <script lang="ts">
@@ -100,14 +127,18 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { ref } from 'vue';
 
 import { FORM_RULES, INITIAL_DATA, CLASS_TYPE_OPTIONS, SCHOOL_OPTIONS } from './constants';
-import {addCourse, getCourseById} from '@/api/catalog';
+import {addCourse, getCourseById,addBatch} from '@/api/catalog';
 import {useRouter}from 'vue-router'
 const formData = ref({ ...INITIAL_DATA });
 const router = useRouter();
 const onReset = () => {
   MessagePlugin.warning('取消新建');
 };
+const INITIAL_DATA1 = {
+  files: [],
+};
 
+const formData1 = ref({ ...INITIAL_DATA1 });
 const pagination = ref({
   defaultPageSize: 20,
   total: 100,
@@ -138,9 +169,10 @@ const onSubmit = async ({validateResult}) => {
     router.back();
   }
 };
-const beforeUpload = (file) => {
-  if (!/\.(pdf)$/.test(file.name)) {
-    MessagePlugin.warning('请上传pdf文件');
+const beforeUpload =(file) => {
+  console.log(file);
+  if (!(/\.(xls)$/.test(file.name)) && !(/\.(xlsx)$/.test(file.name))) {
+    MessagePlugin.warning('请上传xls或xlsx文件');
     return false;
   }
   if (file.size > 60 * 1024 * 1024) {

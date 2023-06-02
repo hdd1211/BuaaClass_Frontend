@@ -2,41 +2,32 @@
   <div class="detail-base">
     <t-card title="基本信息" :bordered="false">
       <div class="info-block">
-        <div v-for="(item, index) in BASE_INFO_DATA" :key="index" class="info-item">
-          <h1>{{ item.name }}</h1>
-          <!-- <h1>{{ item.id }}</h1>
-          <h1>{{ item.department }}</h1>
-          <h1>{{ item.teacher }}</h1> -->
-          <span
-            :class="{
-              ['inProgress']: item.type && item.type.value === 'inProgress',
-              ['pdf']: item.type && item.type.value === 'pdf',
-            }"
-          >
-            <i v-if="item.type && item.type.key === 'contractStatus'" />
-            {{ item.value }}
-          </span>
+        <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>课程名称</h1>
+            <span>{{ item.name }}</span>
+          </div> 
+           <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>课程代码</h1>
+            <span>{{ item.id }}</span>
+          </div> 
+           <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>课程类别</h1>
+            <span>{{ item.type}}</span>
+          </div> 
+           <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>开课学院</h1>
+            <span>{{ item.department}}</span>
+          </div>
+           <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>学分</h1>
+            <span>{{ item.credit}}</span>
+          </div> 
+           <div v-for="(item, index) in data " :key="index" class="info-item">
+            <h1>任课教师</h1>
+            <span>{{ item.teacher_info}}</span>
+          </div> 
         </div>
-      </div>
     </t-card>
-
-    <t-card title="其他信息" :bordered="false">
-      <div class="info-block">
-        <div v-for="(item, index) in OTHER_INFO_DATA" :key="index" class="info-item">
-          <h1>{{ item.name }}</h1>
-          <span
-            :class="{
-              ['inProgress']: item.type && item.type.value === 'inProgress',
-              ['pdf']: item.type && item.type.value === 'pdf',
-            }"
-          >
-            <i v-if="item.type && item.type.key === 'contractStatus'" />
-            {{ item.value }}
-          </span>
-        </div>
-      </div>
-    </t-card>
-
   </div>
 </template>
 
@@ -65,7 +56,7 @@ const fetchData = async () => {
   dataLoading.value = true;
   try {
     let query = route.query;
-    const { list } = await getCourseById(query.id);
+    const { list } = await getCourseById(query);
     data.value = list;
     pagination.value = {
       ...pagination.value,
@@ -80,6 +71,8 @@ const fetchData = async () => {
 onMounted(() => {
   fetchData();
 });
+
+
 
 const BASE_INFO_DATA = [
   {
