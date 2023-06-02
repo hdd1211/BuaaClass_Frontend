@@ -98,6 +98,7 @@ export default [
             {
               id:'@natural(0,1000)',
               'status|1': '@natural(0, 2)',
+              userid:'@natural(0,1000)',
               username: 'buaaer@natural(01, 100)',
               time: '2023-@natural(03,04)-@natural(00,29) @date("HH:mm:ss")',
               'coursename|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
@@ -126,6 +127,7 @@ export default [
             {
               id:'@natural(0,1000)',
               'status|1': '@natural(0, 2)',
+              userid:'@natural(0,1000)',
               username: 'buaaer@natural(01, 100)',
               time: '2023-@natural(03,04)-@natural(00,29) @date("HH:mm:ss")',
               'coursename|1': ["人体工程","工科大学物理","概率统计B","概率统计A","创新创业基础","计算机组成","软件工程","数学建模","大学英语","大学语文","大数据分析","虚拟现实技术","计算机图形学","数学分析"],
@@ -136,6 +138,7 @@ export default [
               'workload|1': '@natural(0, 2)',
               'assessment|1': '@natural(0, 2)',
               'title|1':["比较充实，有所收获","不错"],
+              'text|1':["课程听感：助教和老师都很细心负责，会认真的答疑+讲解。","锻炼自学能力(*/ω＼*)","助教超好！！！"],
               'heat|1': '@natural(0, 1)',
             },
           ],
