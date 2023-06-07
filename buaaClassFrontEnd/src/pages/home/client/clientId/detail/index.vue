@@ -10,10 +10,10 @@
             <h1>用户ID</h1>
             <span>{{ item.id }}</span>
           </div> 
-           <div v-for="(item, index) in data " :key="index" class="info-item">
+           <!-- <div v-for="(item, index) in data " :key="index" class="info-item">
             <h1>用户密码</h1>
             <span>{{ item.password}}</span>
-          </div> 
+          </div>  -->
         </div>
     </t-card>
 

@@ -18,7 +18,7 @@ const defaultRouterList: Array<RouteRecordRaw> = [
   },
   {
     path: '/',
-    redirect: '/home/catalog',
+    redirect: '/login',
   },
 ];
 // 存放固定路由
