@@ -156,7 +156,7 @@ const onSubmit = async ({ validateResult }) => {
 
       MessagePlugin.success('登陆成功');
       const redirect = route.query.redirect as string;
-      const redirectUrl = redirect ? decodeURIComponent(redirect) : '/dashboard';
+      const redirectUrl = redirect ? decodeURIComponent(redirect) : '/home/catalog';
       router.push(redirectUrl);
     } catch (e) {
       console.log(e);
