@@ -60,6 +60,9 @@ export const SATISFY_STATUS = {
   UNSATISFY: 0,
   JUSTSOSO: 1,
   SATISFY: 2,
+  SS:3,
+  SSS:4,
+  SSSS:5,
 };
 
 export const SATISFY_STATUS_OPTIONS = [

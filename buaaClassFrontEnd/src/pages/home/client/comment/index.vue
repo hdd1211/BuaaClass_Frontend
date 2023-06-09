@@ -138,7 +138,7 @@
           <t-tag v-if="row.status === COMMENT_STATUS.DELETE" theme="default"> 已删除 </t-tag>
         </template>
 
-        <template #total="{ row }">
+        <!-- <template #total="{ row }">
           <t-tag v-if="row.total === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
           <t-tag v-if="row.total === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
           <t-tag v-if="row.total === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
@@ -149,9 +149,12 @@
           <t-tag v-if="row.quality === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
         </template>
         <template #workload="{ row }">
-          <t-tag v-if="row.workload === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
+          <t-tag v-if="row.workload === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 少 </t-tag>
           <t-tag v-if="row.workload === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
-          <t-tag v-if="row.workload === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 不满意 </t-tag>
+          <t-tag v-if="row.workload === SATISFY_STATUS.SATISFY" theme="danger" variant="light"> 多 </t-tag>
+          <t-tag v-if="row.workload === SATISFY_STATUS.SS" theme="danger" variant="light"> 很多 </t-tag>
+          <t-tag v-if="row.workload === SATISFY_STATUS.SSS" theme="danger" variant="light"> 太多 </t-tag>
+          <t-tag v-if="row.workload === SATISFY_STATUS.SSSS" theme="danger" variant="light"> 非常多 </t-tag>
         </template>
         <template #assessment="{ row }">
           <t-tag v-if="row.assessment === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
@@ -165,7 +168,7 @@
           <div v-if="row.heat === HEAT_STATUS.DOWN" class="payment-col">
             热度<trend class="dashboard-item-trend" type="down" />
           </div>
-        </template>
+        </template> -->
 
         <template #op="slotProps">
           <a class="t-button-link" @click="handleClickDetail(slotProps)"> 详情 </a>

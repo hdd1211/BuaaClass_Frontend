@@ -1,10 +1,10 @@
-<template>
+<template #op="slotProps">
   <div class="detail-base">
-
     <t-card title="评论标题" :bordered="false">
       <div v-for="(item, id) in data" :key="id" class="info-item">
             {{ item.title }}
         </div>
+          
     </t-card>
     
     <t-card title="评论正文" class="container-base-margin-top" :bordered="false">
@@ -27,7 +27,7 @@
             <t-tag v-if="item.status === COMMENT_STATUS.REPORT" theme="danger"> 已举报 </t-tag>
             <t-tag v-if="item.status === COMMENT_STATUS.DELETE" theme="default"> 已删除 </t-tag>
           <span>
-            {{ item.status }}
+            <!-- {{ item.status }} -->
           </span>
         </div>
         <div v-for="(item, id) in data" :key="id" class="info-item">
@@ -102,7 +102,7 @@
             {{ item.assessment }}
           </span>
         </div>
-        <div v-for="(item, id) in data" :key="id" class="info-item">
+        <!-- <div v-for="(item, id) in data" :key="id" class="info-item">
           <h1> 热度 </h1>
           <span>
           <div v-if="item.heat === HEAT_STATUS.UP" class="payment-col">
@@ -115,10 +115,13 @@
           <span>
             {{ item.heat }}
           </span>
-        </div>
+        </div> -->
       </div>
+         
     </t-card>
-
+     <!-- <t-card>
+            <a class="t-button-link" @click="handleClickDelete(slotProps)"> 删除 </a>
+    </t-card> -->
   </div>
 </template>
 

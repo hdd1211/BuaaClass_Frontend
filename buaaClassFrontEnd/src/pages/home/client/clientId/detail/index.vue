@@ -36,7 +36,7 @@
           <t-tag v-if="row.status === COMMENT_STATUS.REPORT" theme="danger"> 已举报 </t-tag>
           <t-tag v-if="row.status === COMMENT_STATUS.DELETE" theme="default"> 已删除 </t-tag>
         </template>
-
+<!-- 
         <template #total="{ row }">
           <t-tag v-if="row.total === SATISFY_STATUS.UNSATISFY" theme="success" variant="light"> 很满意 </t-tag>
           <t-tag v-if="row.total === SATISFY_STATUS.JUSTSOSO" theme="warning" variant="light"> 一般 </t-tag>
@@ -64,7 +64,7 @@
           <div v-if="row.heat === HEAT_STATUS.DOWN" class="payment-col">
             热度<trend class="dashboard-item-trend" type="down" />
           </div>
-        </template>
+        </template> -->
 
         <template #op="slotProps">
           <a class="t-button-link" @click="handleClickDetail(slotProps)"> 详情 </a>
@@ -210,12 +210,12 @@ const COLUMNS: PrimaryTableCol<TableRowData>[] = [
   //   ellipsis: true,
   //   colKey: 'text',
   // },
-  {
-    title: '热度',
-    width: 160,
-    ellipsis: true,
-    colKey: 'heat',
-  },
+  // {
+  //   title: '热度',
+  //   width: 160,
+  //   ellipsis: true,
+  //   colKey: 'heat',
+  // },
   {
     align: 'left',
     fixed: 'right',

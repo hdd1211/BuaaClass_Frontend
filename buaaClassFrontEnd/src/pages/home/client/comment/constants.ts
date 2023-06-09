@@ -82,12 +82,12 @@ export const COLUMNS: PrimaryTableCol<TableRowData>[] = [
   //   ellipsis: true,
   //   colKey: 'text',
   // },
-  {
-    title: '热度',
-    width: 160,
-    ellipsis: true,
-    colKey: 'heat',
-  },
+  // {
+  //   title: '热度',
+  //   width: 160,
+  //   ellipsis: true,
+  //   colKey: 'heat',
+  // },
   {
     align: 'left',
     fixed: 'right',
